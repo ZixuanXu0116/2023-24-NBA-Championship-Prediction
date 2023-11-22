@@ -172,6 +172,9 @@ if __name__ == "__main__":
     total_iterations = 4 * (2024 - 2015) + 4 * (2025 - 2015)
     progress_bar = tqdm(total=total_iterations, desc="Processing")
 
+    new_directory = os.path.join(current_directory, "code", "data_scraping")
+    os.chdir(new_directory)
+
     for target_type in ['player', 'team']:
         for data_type in ['normal', 'advanced']:
             for game_type in ['regular', 'playoffs']:
