@@ -21,11 +21,20 @@ pip install -r requirements.txt
 
 ```
 
-* Then create a .env file in the same format as demo.env by changing the attributes inside like passwords, host, database name to the ones of your own database.
+* Then create a .env file in the same format as demo.env by changing the attributes inside like passwords, host, and database_name to the ones of your own database. You can edit the content in the demo.env directly and then run:
 
+
+```python
+cp demo.env .env
+
+```
+
+* In this way, you will set up the dotenv file for loading data into the database, then run the following python code:
 
 ```python
 python3 code/data_scraping/get_NBA_data.py
 
 ```
+
+* After the tqdm process bar completes, you will get 8 tables containing normal and advanced data of players and teams in playoffs and regular seasons respectively in your database.
 
