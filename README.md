@@ -43,3 +43,6 @@ crontab -e
 0 0 * * * your_directory/update_data.py
 
 ```
+
+Learning Materials:
+Google Data Studio Visualization: https://www.youtube.com/watch?v=CvsCQJFpRpI
