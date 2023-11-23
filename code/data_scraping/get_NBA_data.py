@@ -7,19 +7,27 @@ import time
 import os
 
 
-def get_soup_from_page(season, game_type, target_type):
+def get_soup_from_page(season, game_type, target_type, data_type):
 
     '''
     Scraping soup from 'basketball-reference.com'
-    Parameters: season: int , game_type and target_type: str
+    Parameters: season: int , game_type, target_type and data_type: str
     Examples: 'season = 2022' refer to the year in which the playoffs occurred, 
     namely the season that Warriors won the championship.
     Restrictions: game_type can only be 'regular' or 'playoffs', 
-                target_type can only be 'player' or 'team'.
+                target_type can only be 'player' or 'team',
+                data_type can only be 'normal' or 'advanced'.
     '''
 
     url1 = 'leagues' if game_type == 'regular' else 'playoffs'
-    url2 = '_per_game' if target_type == 'player' else ''
+
+    if target_type == 'player' and data_type == 'normal':
+        url2 = '_per_game' 
+    elif target_type == 'player' and data_type == 'advanced':
+        url2 = '_advanced'
+    else:
+        url2 = ''
+
     url3 = '#all_per_game_team-opponent' if target_type == 'team' else ''
 
     url = "https://www.basketball-reference.com/" + url1 + f"/NBA_{season}" + url2 + '.html' + url3
@@ -53,7 +61,7 @@ def get_df_stats(season, game_type, target_type, data_type):
     '''Extract the stats table into a dataframe, and different combinations of 
        game_type, target_type, and data_type may need different codes to get the correct answer'''
 
-    soup = get_soup_from_page(season, game_type, target_type)
+    soup = get_soup_from_page(season, game_type, target_type, data_type)
 
     '''Get the needed table from the website'''
 
@@ -106,8 +114,8 @@ def get_df_stats(season, game_type, target_type, data_type):
 
     elif (game_type, target_type, data_type) == ('regular', 'player', 'advanced'):
 
-        # columns_to_delete = ['\xa0']
-        # df = df.drop(columns=columns_to_delete)
+        columns_to_delete = ['\xa0']
+        df = df.drop(columns=columns_to_delete)
 
         CSV_PATH = mk_csv_dir(season, game_type, data_type)
         df.to_csv(CSV_PATH, index = False)
@@ -158,6 +166,8 @@ def get_df_stats(season, game_type, target_type, data_type):
         df_final = df
     
     return df_final
+
+
 
 
 
