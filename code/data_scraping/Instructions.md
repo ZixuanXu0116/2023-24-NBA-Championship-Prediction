@@ -1,9 +1,6 @@
 Tools: Google Data Studio for visualization (maybe also dashboards), 
-       
        Tableau for dashboards,
-
        Flourish for some fancy gifs,
-
        Python for Predictions.
 
 
