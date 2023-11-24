@@ -1,4 +1,4 @@
-Tools: 
+## Tools: 
 
 * Google Data Studio for visualization (maybe also dashboards),
 
@@ -9,7 +9,7 @@ Tools:
 * Python for Predictions
 
 
-Ideas: 
+## Ideas: 
 
 ## Visualization before introducing the model:
 
