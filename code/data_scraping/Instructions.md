@@ -43,7 +43,7 @@ a. Visualize the probability of the final record for each team.
 
 b. make some fancy chart by Flourish, like a bar chart race gif.
 
-![Flourish Demo](../demos/Bar Chart Race.png)
+![Flourish Demo](../demos/Bar_Chart_Race.png)
 
 ## Things to do from now on:
 
