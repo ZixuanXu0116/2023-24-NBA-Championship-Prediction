@@ -11,7 +11,7 @@ Tools:
 
 Ideas: 
 
-* Visualization before introducing the model:
+## Visualization before introducing the model:
 
 Use Tableau and Google Data Studio to do some visualization for an explanation. For example, we need to let every audience know our criteria (attributes we use) for rating players. For example, I used DBPM and OBPM (Defensive and offensive box plus/minus) to judge the performance of a player in playoffs and visualize it by Tableau. (See my Tableau demo at https://public.tableau.com/app/profile/zixuan.xu7872/viz/correct_demo/Sheet2?publish=yes) My plan is to first do some visualization like this to guide the audience to gradually understand some necessary NBA knowledge and then introduce our model accordingly.
 For demo visualization using Google Data Studio, please see the picture below.
@@ -20,7 +20,7 @@ For demo visualization using Google Data Studio, please see the picture below.
 ![Google Data Studio Demo](../demos/PHI_23_playoffs_performances.png)
 
 
-* ML models for prediction:
+## ML models for prediction:
 
 a. Build a player rating and team rating model. Like NBA 2K, we can formulate an algorithm to give each player a rating value. For example, we can respectively calculate the offense rating and defense rating in the regular season and playoffs of a player. Similarly, we can formulate an algorithm to compute the team's rating.
 
@@ -37,7 +37,7 @@ f. Obtain the final results for all teams. (Did not make it to the playoffs， E
 g. Repeat the above process many times to eventually obtain the probability of the final record for each team.
 
 
-* Visualization after the prediction:
+## Visualization after the prediction:
 
 a. Visualize the probability of the final record for each team.
 
@@ -45,7 +45,7 @@ b. make some fancy chart by Flourish, like a bar chart race gif.
 
 ![Flourish Demo](../demos/Bar Chart Race.png)
 
-* Things to do from now on:
+## Things to do from now on:
 
 a. Choose at least one Topic: Visualization or Modeling.
 
