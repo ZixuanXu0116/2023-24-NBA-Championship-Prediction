@@ -17,7 +17,7 @@ Use Tableau and Google Data Studio to do some visualization for an explanation. 
 Also, for demo visualization using Google Data Studio, please see the picture below.
 
 
-![Google Data Studio Demo](demos/GDS.png)
+![Google Data Studio Demo](../demos/PHI_23_playoffs_performances.png)
 
 
 
