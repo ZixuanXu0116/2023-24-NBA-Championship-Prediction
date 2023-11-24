@@ -11,7 +11,7 @@
 * Create a database on GCP.
 * After the GCP database has been set up completely, please follow the commands and instructions below.
 
-```python  
+```linux
 
 git clone git@github.com:ZixuanXu0116/2023-24-NBA-Championship-Prediction.git
 
