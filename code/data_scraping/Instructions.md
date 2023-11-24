@@ -39,7 +39,7 @@ g. Repeat the above process many times to eventually obtain the probability of t
 
 ## C. Visualization after the prediction:
 
-a. Visualize the probability of the final record for each team.
+a. Visualize the result with probability of the final record for each team.
 
 b. make some fancy chart by Flourish, like a bar chart race gif.
 
