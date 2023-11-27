@@ -4,3 +4,4 @@ pandas==1.4.3
 tqdm==4.66.1
 SQLAlchemy==1.4.34
 python-dotenv==0.20.0
+lxml==4.9.3
