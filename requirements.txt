@@ -2,6 +2,6 @@ requests==2.22.0
 bs4==0.0.1
 pandas==1.4.3
 tqdm==4.66.1
-SQLAlchemy==1.4.34
+SQLAlchemy==1.4.39
 python-dotenv==0.20.0
 lxml==4.9.3
