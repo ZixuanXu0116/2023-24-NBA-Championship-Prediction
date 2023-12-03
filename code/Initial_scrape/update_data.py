@@ -10,7 +10,8 @@ delay = 60 / requests_per_minute
 def update_data(target_type, data_type):
 
     delete_statement = f'DELETE FROM nba_regular_{data_type}_{target_type}_data WHERE season = 2024'
-    engine.execute(delete_statement)
+    with engine.connect() as conn:
+        conn.execute(delete_statement)
     
     df = get_df_stats(2024, 'regular', target_type, data_type)
     df.to_sql(f'nba_regular_{data_type}_{target_type}_data', \
