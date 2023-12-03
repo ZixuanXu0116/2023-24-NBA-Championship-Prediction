@@ -48,3 +48,5 @@ Learning Materials:
 Google Data Studio Visualization: https://www.youtube.com/watch?v=CvsCQJFpRpI
 
 Tableau Dashboard: https://www.youtube.com/watch?v=sqbq4eTv3AU
+
+NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
