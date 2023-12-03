@@ -3,6 +3,8 @@ from database import engine
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import os
+import warnings
+warnings.filterwarnings('ignore')
 
 def get_player_type_and_level(season, table_name, *feature_lists):
     sql_query = f"SELECT * FROM {table_name} WHERE season_n1 = {season}"
