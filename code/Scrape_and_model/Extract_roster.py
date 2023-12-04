@@ -9,8 +9,8 @@ columns = ['Player', 'Pos', 'Age', 'Tm', 'MP', 'G', 'shooting', 'peri_def', 'pla
 combined_df = pd.DataFrame(columns=columns)
 
 # Assuming you have DataFrames for 2015 playoffs and 2016 regular season
-player_playoffs_2015 = pd.read_csv(os.path.join(os.getcwd(), 'player_playoffs_cluster_2015.csv'))
-play_2016 = pd.read_csv(os.path.join(os.getcwd(), 'play_cluster_2016.csv'))
+player_playoffs_2015 = pd.read_csv(os.path.join(os.getcwd(), 'player_clusters_2015.csv'))
+play_2016 = pd.read_csv(os.path.join(os.getcwd(), 'player_clusters_2016.csv'))
 
 # Step 2: Iterate over each row in the 2016 playoffs DataFrame
 for index, row_2016_playoffs in play_2016.iterrows():
