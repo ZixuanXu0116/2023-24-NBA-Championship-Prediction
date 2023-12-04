@@ -22,9 +22,29 @@ for index, row_2016_playoffs in play_2016.iterrows():
         player_attributes = player_playoffs_2015[player_playoffs_2015['Player'] == player_name].iloc[0]
         # Update the team name to the current team for the 2016 playoffs
         player_attributes['Tm'] = row_2016_playoffs['Tm']
+
+# Step 4: Age-based adjustments to attributes
+        age = player_attributes['Age']
+        attribute_columns = ['shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']
+        for col in attribute_columns:
+            if 18 <= age <= 23 and player_attributes[col] != 5:
+                player_attributes[col] += 0.5
+            elif 24 <= age <= 27 and player_attributes[col] != 5:
+                player_attributes[col] += 0.25
+            elif 33 <= age <= 35 and player_attributes[col] != 0:
+                player_attributes[col] -= 0.25
+            elif age >= 36 and player_attributes[col] != 0:
+                player_attributes[col] -= 0.5
+
     else:
         # If no, use the player's attributes from the 2016 regular season DataFrame
         player_attributes = row_2016_playoffs.copy()
+
+        # Step 5: Decrease all ability attributes by 0.25 if the value is not 0
+        attribute_columns = ['shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']
+        for col in attribute_columns:
+            if player_attributes[col] != 0:
+                player_attributes[col] -= 0.25
 
     # Step 4: Append the player's attributes to the combined DataFrame
     combined_df = combined_df.append(player_attributes, ignore_index=True)
