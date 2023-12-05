@@ -41,3 +41,18 @@ def get_season_schedule(season):
     final_df = pd.DataFrame(processed_games)
 
     return final_df
+
+    
+if __name__ == "__main__":
+
+    all_game_schedule = pd.DataFrame()
+
+    for season in tqdm(range(2015, 2025), desc="Processing years"):
+
+        df = get_season_schedule(season)
+        all_game_schedule = pd.concat([all_game_schedule, df])
+
+    
+    '''Pushing into databases'''
+
+    all_game_schedule.to_sql('regular_game_schedule_data', con=engine, if_exists='replace', index=False)
