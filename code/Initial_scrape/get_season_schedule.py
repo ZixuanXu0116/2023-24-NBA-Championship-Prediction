@@ -22,3 +22,22 @@ def get_season_schedule(season):
     team_start_indices.append(num_rows - 1)
 
     processed_games = []
+
+        for i in range(0, len(team_start_indices), 2):  
+
+        date = demo_df.loc[team_start_indices[i], 'date']
+        team1 = demo_df.loc[team_start_indices[i] - 1, 'Tm']
+        team2 = demo_df.loc[team_start_indices[i + 1] - 1, 'Tm']
+        result = demo_df.loc[team_start_indices[i + 1] - 1 , 'Win']
+
+        processed_games.append({
+            'date': date,
+            'team1': team1,
+            'team2': team2,
+            'result': result,
+            'season': season
+        })
+    
+    final_df = pd.DataFrame(processed_games)
+
+    return final_df
