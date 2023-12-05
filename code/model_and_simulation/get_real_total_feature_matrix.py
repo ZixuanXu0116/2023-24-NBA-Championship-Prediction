@@ -17,15 +17,17 @@ date = df['date']
 df['team1'] = df['team1'].apply(ast.literal_eval)
 df['team2'] = df['team2'].apply(ast.literal_eval)
 
-# Assuming df is your DataFrame
-# Flatten features and matrix for both teams
+
+'''Flatten features and matrix for both teams'''
+
 df_team1_features = json_normalize(df['team1'].apply(lambda x: x['features'][0]))
 df_team1_matrix = json_normalize(df['team1'].apply(lambda x: x['matrix']))
 
 df_team2_features = json_normalize(df['team2'].apply(lambda x: x['features'][0]))
 df_team2_matrix = json_normalize(df['team2'].apply(lambda x: x['matrix']))
 
-# Concatenate the flattened features and matrix
+'''Concatenate the flattened features and matrix'''
+
 df = pd.concat([df_team1_features, df_team1_matrix, df_team2_features, df_team2_matrix], axis=1)
 
 dict_columns = [0, 1, 2, 3, 4, 5, 6, 7, 8]

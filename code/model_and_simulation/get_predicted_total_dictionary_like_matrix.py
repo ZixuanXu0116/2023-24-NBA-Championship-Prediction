@@ -11,7 +11,8 @@ warnings.filterwarnings('ignore')
 DATA_DIR = os.path.join(os.getcwd(), 'data')
 SCORE_DIR = os.path.join(DATA_DIR, 'scores')
 
-# Load Player Data (Ability-Cluster Data)
+'''Load Player Data (Ability-Cluster Data)'''
+
 def load_player_cluster_data(season):
 
     query = f'SELECT * FROM regular_predicted_player_matrix_data WHERE season = {season}'
@@ -21,7 +22,8 @@ def load_player_cluster_data(season):
 
     return df
 
-# Load Game-by-Game Data
+'''Load Game-by-Game Data'''
+
 def load_game_by_game_data(season):
 
     query = f'SELECT * FROM nba_game_by_game_regular_data WHERE season = {season}'
@@ -29,7 +31,8 @@ def load_game_by_game_data(season):
 
     return df
 
-# Load Team Data
+'''Load Team Data'''
+
 def load_team_data(season):
 
     query = f'SELECT * FROM nba_regular_advanced_team_data WHERE season = {season}'
