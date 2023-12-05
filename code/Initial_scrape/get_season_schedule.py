@@ -23,7 +23,7 @@ def get_season_schedule(season):
 
     processed_games = []
 
-        for i in range(0, len(team_start_indices), 2):  
+    for i in range(0, len(team_start_indices), 2):  
 
         date = demo_df.loc[team_start_indices[i], 'date']
         team1 = demo_df.loc[team_start_indices[i] - 1, 'Tm']
