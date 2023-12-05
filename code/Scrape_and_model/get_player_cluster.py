@@ -155,7 +155,7 @@ if __name__ == "__main__":
         result_df = get_player_type_and_level(player_data, year, shooting_abl, 
                                             peri_def_abl, playmkr_abl, pro_rim_abl, 
                                             effi_abl, influ_abl, scoring_abl)
-        all_clustered_players_regular = pd.concat([all_clustered_players_regular, result_df])
+        all_clustered_players_regular = pd.concat([all_clustered_players_regular, result_df]).fillna(0)
 
     '''Pushing to database'''
     all_clustered_players_regular.to_sql('players_ability_cluster_regular_data', \
@@ -170,7 +170,7 @@ if __name__ == "__main__":
         result_df = get_player_type_and_level(player_data, year, shooting_abl, 
                                             peri_def_abl, playmkr_abl, pro_rim_abl, 
                                             effi_abl, influ_abl, scoring_abl)
-        all_clustered_players_playoffs = pd.concat([all_clustered_players_playoffs, result_df])
+        all_clustered_players_playoffs = pd.concat([all_clustered_players_playoffs, result_df]).fillna(0)
 
     all_clustered_players_playoffs.to_sql('players_ability_cluster_playoffs_data', \
                         con=engine, if_exists='replace', index=False)
