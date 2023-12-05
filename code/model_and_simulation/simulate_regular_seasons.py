@@ -2,13 +2,13 @@ import pandas as pd
 import numpy as np
 from database import engine
 from tqdm import tqdm
-from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
-from sklearn.model_selection import GridSearchCV
 from generate_playin_1st_round_result import generate_new_df_part
 from generate_feature_matrix import get_feature_matrix
-from give_result_two_teams import get_single_game_result
+from get_result_two_teams_regular import get_single_game_result
+import warnings
+warnings.filterwarnings('ignore')
 
 query_train = f'SELECT * FROM real_total_feature_matrix_data'
 df_train = pd.read_sql_query(query_train, engine)
@@ -31,7 +31,7 @@ model.fit(X_train, y_train)
 
 '''Make predictions on the test set'''
 
-num_iterations = 999
+num_iterations = 1
 
 '''Store the predictions for each iteration'''
 
@@ -140,7 +140,7 @@ print("\nWestern Conference Results:")
 print(western_results_df)
 
 
-playin_range = range(7, 11)
+playin_range = range(6, 10)
 
 # Identify the teams that would be in the play-in games
 eastern_playin_teams = eastern_results_df.iloc[playin_range].copy()
@@ -171,7 +171,8 @@ y_pred_playin_round_one = model.predict(playin_round_one_matrix)
 
 playin_round_one['result_pred'] = y_pred_playin_round_one
 print('-----------------------------------------------------------')
-print(generate_new_df_part(playin_round_one))
+round_one_result = generate_new_df_part(playin_round_one)
+print(round_one_result)
 print('-----------------------------------------------------------')
 west_team1 = str(input('Please tell me the temp West 9 team: '))
 west_team2 = str(input('Please tell me the temp West 8 team: '))
@@ -186,12 +187,54 @@ print('------------------------------------------------------------')
 result_west = get_single_game_result(west_team1, west_team2, model)
 result_east = get_single_game_result(east_team1, east_team2, model)
 
+eight_list = []
 if result_west == 1:
     print(f'{west_team2} makes the playoffs as West 8, {west_team1} goes home')
+    eight_list.append(west_team2)
 else:
     print(f'{west_team1} makes the playoffs as West 8, {west_team2} goes home')
+    eight_list.append(west_team1)
 
 if result_east == 1:
     print(f'{east_team2} makes the playoffs as East 8, {east_team1} goes home')
+    eight_list.append(east_team2)
 else:
     print(f'{east_team1} makes the playoffs as East 8, {east_team2} goes home')
+    eight_list.append(east_team1)
+
+
+top_six_west = list(western_results_df.iloc[0:6, :]['Team'])
+top_six_east = list(eastern_results_df.iloc[0:6, :]['Team'])
+
+top_wins_west = list(western_results_df.iloc[0:6, :]['Wins'].tolist())
+top_wins_east = list(eastern_results_df.iloc[0:6, :]['Wins'].tolist())
+
+west_seven = round_one_result.iloc[0]['team'][-3:]
+east_seven = round_one_result.iloc[4]['team'][-3:]
+
+seven_wins_west = western_results_df[western_results_df['Team'] == west_seven]['Wins'].iloc[0]
+seven_wins_east = eastern_results_df[eastern_results_df['Team'] == east_seven]['Wins'].iloc[0]
+
+west_eight = eight_list[0]
+east_eight = eight_list[1]
+
+eight_wins_west = western_results_df[western_results_df['Team'] == west_eight]['Wins'].iloc[0]
+eight_wins_east = eastern_results_df[eastern_results_df['Team'] == east_eight]['Wins'].iloc[0]
+
+top_six_west += [west_seven, west_eight]
+top_six_east += [east_seven, east_eight]
+
+top_wins_west += [seven_wins_west, eight_wins_west]
+top_wins_east += [seven_wins_east, eight_wins_east]
+
+top_eight_west = top_six_west
+top_eight_east = top_six_east
+
+ranking_west_df = pd.DataFrame(top_eight_west, columns=['Rankings'])
+ranking_west_df['Wins'] = top_wins_west 
+ranking_east_df = pd.DataFrame(top_eight_east, columns=['Rankings'])
+ranking_east_df['Wins'] = top_wins_east
+
+ranking_east_df.to_sql('predicted_2022_23_east_playoffs_teams', con=engine, if_exists='replace', index=False)
+ranking_west_df.to_sql('predicted_2022_23_west_playoffs_teams', con=engine, if_exists='replace', index=False)
+print('Saved the result to the database')
