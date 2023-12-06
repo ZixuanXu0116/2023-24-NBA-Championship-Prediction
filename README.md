@@ -52,4 +52,4 @@ Tableau Dashboard: https://www.youtube.com/watch?v=sqbq4eTv3AU
 NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
 
 Flowchart: 
-![NBA Prediction Flow](Visualizations/Updated-NBA-prediction.png)
+![NBA Prediction Flow](visualizations/Updated-NBA-prediction.png)
