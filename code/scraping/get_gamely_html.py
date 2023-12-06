@@ -10,9 +10,9 @@ from IPython.display import clear_output
 
 
 DATA_DIR = 'data'
-STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') # data is a directory where standings will be located inside
+STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') '''data is a directory where standings will be located inside'''
 SCORES_DIR = os.path.join(DATA_DIR, 'scores')
-ACTUAL_MONTH_SCORES_DIR = os.path.join(DATA_DIR, 'actual_month_scores') # data is a directory where standings will be located inside
+ACTUAL_MONTH_SCORES_DIR = os.path.join(DATA_DIR, 'actual_month_scores') '''data is a directory where standings will be located inside'''
 
 os.makedirs(STANDINGS_DIR, exist_ok = True)
 os.makedirs(SCORES_DIR, exist_ok = True)
@@ -35,11 +35,11 @@ def compress(file_names, files_path, output_path):
      
     print('Compressing files...')
 
-    # Select the compression mode ZIP_DEFLATED for compression
-    # or zipfile.ZIP_STORED to just store the file
+    '''Select the compression mode ZIP_DEFLATED for compression
+        or zipfile.ZIP_STORED to just store the file'''
     compression = zipfile.ZIP_DEFLATED
 
-    # create the zip file first parameter path/name, second mode
+    '''create the zip file first parameter path/name, second mode'''
     zf = zipfile.ZipFile(os.path.join(output_path, 'compressed_games.zip'), mode="w")
     try:
         for file_name in tqdm(file_names):
@@ -88,7 +88,7 @@ def get_html(url, selector, sleep=4, retries=6):
         print('Fail')
 
 
-def scrape_boxscores(standing_file, season_year): # getting the paths of the htmls
+def scrape_boxscores(standing_file, season_year): '''getting the paths of the htmls'''
     """
           Input:
             standing_file: path to the standings file (type: str)
@@ -98,7 +98,8 @@ def scrape_boxscores(standing_file, season_year): # getting the paths of the htm
           Output:
             box_scores: list of box scores (type: list)
     """
-     # here we grab a month and go trough all the month box scores
+    
+    '''here we grab a month and go through all the month box scores'''
     with open(standing_file,'r') as f:
         html = f.read()
 
@@ -107,25 +108,25 @@ def scrape_boxscores(standing_file, season_year): # getting the paths of the htm
     hrefs = [l.get('href') for l in links]
     box_scores = [href for href in hrefs if href and 'boxscore' in href and '.html' in href]
     box_scores = [f'https://www.basketball-reference.com/{href}' for href in box_scores ]
-    # print(f'Now scraping the box scores of the {standing_file.split("/")[-1]}')
+    '''print(f'Now scraping the box scores of the {standing_file.split("/")[-1]}')'''
 
     for url in tqdm(box_scores): 
 
-        save_path = os.path.join(SCORES_DIR, url.split('/')[-1]) # saving in directory the name of the BOX SCORE
+        save_path = os.path.join(SCORES_DIR, url.split('/')[-1]) '''saving in directory the name of the BOX SCORE'''
             
         if os.path.exists(save_path):     
             continue
 
-        html = get_html(url=url, selector='#content') #grabing oly wha we want from id selector
+        html = get_html(url=url, selector='#content') '''grabing oly what we want from id selector'''
         if not html:
             print(f'still nothing on the first attempt to get the whole {url} content')
-            continue # if the link is broken or  laging we go on to the next 
+            continue '''if the link is broken or lagging we go on to the next '''
         else:
-            # print(f'attempt to get the {url} content succeed!')
+            '''print(f'attempt to get the {url} content succeed!')'''
             pass
             
         with open (save_path, 'w+', encoding="utf-8") as f:
-            f.write(html) # content to be saved in the file  with specified name
+            f.write(html) '''content to be saved in the file  with specified name'''
 
 
 
