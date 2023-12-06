@@ -50,3 +50,14 @@ Google Data Studio Visualization: https://www.youtube.com/watch?v=CvsCQJFpRpI
 Tableau Dashboard: https://www.youtube.com/watch?v=sqbq4eTv3AU
 
 NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
+
+Flowchart: 
+![image](https://github.com/ZixuanXu0116/2023-24-NBA-Championship-Prediction/assets/143036685/33ad7536-ed7c-4d68-953c-6e37355731c3)
+
+
+Tableau visualizations: 
+
+1. Scoring Ability Prediction: https://public.tableau.com/app/profile/zixuan.xu7872/viz/Example_book2/Sheet3?publish=yes
+2. LAL & LAC Players' Scoring, Efficiency and influence: https://public.tableau.com/app/profile/zixuan.xu7872/viz/Example_book3/Sheet2?publish=yes
+
+
