@@ -72,7 +72,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 ### Actual Results
 
-<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="400">
+<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="70%">
 
 
 ### Model Evaluation
