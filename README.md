@@ -30,7 +30,7 @@ LAL & LAC Players' Scoring & shooting to influence: (https://public.tableau.com/
 
 
 ***Predict Next Year's Player Ability Vector:***
-* For predicting the ability vector of a given year, we want some way to adjust last year's player's ability vectors to make it a predicted one for this year. As a motivation, we used the following article:
+* For predicting the ability vector of a given year, we want some way to adjust last year's player's ability vectors for the current year. As a motivation, we used the following article:
 
 NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
 
