@@ -72,7 +72,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 ![Actual Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
 
-![Predicted Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
+![Predicted Playoffs](visualizations/predicted_playoffs_bracket_tree_plot.png)
 
 * For the model evaluation, here is our report:
 
