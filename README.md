@@ -71,6 +71,9 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 ### Actual Playoffs
 
 ![Actual Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
+<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="50%">
+<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="400">
+
 
 ### Predicted Playoffs
 
