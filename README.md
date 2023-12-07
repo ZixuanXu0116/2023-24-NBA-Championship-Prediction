@@ -36,7 +36,7 @@ NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-pre
 *Zixuan Age Chart*
 
 ***Construct Team Ability Matrix:***
-* Having obtained the ability vectors for each player in each regular season and playoff, it is natural to establish a **Team Ability Matrix**. For each time, we select the nine players with the most playing time for each team (5 starters and 4 key bench players): these are the team's key players. We then form a 9x7 ability matrix with these nine players and their seven attributes. Then we add relevant variables of: age, on-court positions, time played, and game played. The result is a **Team Ability Matrix** for each team and season, for both regular season and playoff formats. Here is an example:
+* Having obtained the ability vectors for each player in each regular season and playoff, it is natural to establish a **Team Ability Matrix**. For each team, we select the nine players with the most playing time (5 starters and 4 key bench players): these are the team's key players. Next, we form a 9x7 ability matrix with these nine players and their seven attributes. Finally, we add relevant variables of: age, on-court positions, time played, and game played. The result is a **Team Ability Matrix** for each team and season, for both regular season and playoff formats. Here is an example:
 
 
 *Formatted df of player ability matrix, or screenshot*
