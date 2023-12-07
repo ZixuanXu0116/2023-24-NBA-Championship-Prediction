@@ -1,7 +1,7 @@
 # 2023-24-NBA-Championship-Prediction
 
 
-![NBA Playoffs](visualizations/Playoffs.png)
+![NBA Playoffs](visualizations/Updated-Playoffs)
 
 ## A. Data Scraping and Loading
  
