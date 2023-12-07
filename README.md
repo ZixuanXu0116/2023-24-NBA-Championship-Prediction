@@ -1,59 +1,21 @@
 # 2023-24-NBA-Championship-Prediction
 
-## A. Data Scraping and Loading
- 
-***Source:*** We scraped the NBA normal and advanced data of players and teams in playoffs and regular seasons from https://www.basketball-reference.com/
 
 
-***Execution method:*** To execute the code and load the data to your database, you should:
-* Create a Google Cloud Platform (GCP) account and set up a project.
-* Enable the necessary APIs for your project, such as the PostgreSQL API if you're using PostgreSQL.
-* Create a database on GCP.
-* After the GCP database has been set up completely, please follow the commands and instructions below.
 
-```linux
+Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Qi Suqian](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), (Joseph Williams)[https://github.com/josephwms]
 
-git clone git@github.com:ZixuanXu0116/2023-24-NBA-Championship-Prediction.git
+## Introduction
+Welcome to our project with the goal of accurately predicting an entire NBA season and ultimitely determining a champion!  Leading industry methods are complex.  Really complex.  https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/.  We wanted to design the best possible model using only a few novel features, namely: kmeans clustering, team ability matrices, and random forest classificatoins.
 
-cd 2023-24-NBA-Championship-Prediction
+## Our Process
 
-pip install -r requirements.txt 
-
-```
-
-* Then create a .env file in the same format as demo.env by changing the attributes inside like passwords, host, and database_name to the ones of your own database. You can edit the content in the demo.env directly and then run:
-
-
-```python
-cp demo.env .env
-
-```
-
-* In this way, you will set up the dotenv file for loading data into the database, then run the following Python code:
-
-```python
-python3 code/data_scraping/get_NBA_data.py
-
-```
-
-* Since the data of the NBA 2023-24 Regular Season will be updated for now (2023/11), i.e. almost new game stats every day, we provide a code to update data automatically every day. You can set up an automatic code execution in the following method in your terminal:
-
-```python
-crontab -e
-0 0 * * * your_directory/update_data.py
-
-```
-
-Learning Materials:
-Google Data Studio Visualization: https://www.youtube.com/watch?v=CvsCQJFpRpI
-
-Tableau Dashboard: https://www.youtube.com/watch?v=sqbq4eTv3AU
-
-NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
-
-Flowchart: 
 ![NBA Prediction Flow](visualizations/Updated-NBA-prediction.png)
 
+
+## A. Data Scraping and Loading
+ 
+***Source:*** Data was primiarily scraped from https://www.basketball-reference.com/. Simpler scrapes included gathering player and team data averages over an entire season, while more complex scrapes involved gathering data from each individual match held from 2015 until now.
 
 ## B. Data Preparation
 
@@ -64,6 +26,14 @@ Flowchart:
 
 ***Construct Player Ability Vector:***
 * We utilized the K-means machine learning classification algorithm for the Player Ability Cluster Matrix. Different attributes were employed to classify distinct abilities, and we devised custom weights to calculate the ranking of each cluster. Consequently, we constructed a **Player Ability Vector**. Each player is measured by seven attributes: shooting, peri_def, playmaker, pro_rim, efficiency, influence, and scoring. Each attribute ranges from 0 to 5, where 0 signifies the weakest ability in the respective attribute, while 5 indicates the strongest. Here is an example:(screenshot)
+
+***Predict Next Year's Player Ability Vector:***
+* Since our model will only use previous year data for predicting a given year, we want some way to adjust a player's 
+
+
+
+NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
+
 
 ***Construct Team Ability Matrix:***
 * Having obtained the ability vectors for each player in each regular season and playoff, it is natural to establish a **Team Ability Matrix**. Each team consists of a different number of players, for simplification, we only selected the nine players with the longest playing time in each team, which is essentially the key nine players for that team. We formed a 9x7 ability matrix with these nine players and their seven attributes. Adding a few columns to this matrix for their age, on-court positions, time played, and game played, we constructed a **Team Ability Matrix** for each team for each season and the regular seasons and playoffs. Here is an example:(screenshot)
@@ -118,4 +88,48 @@ Flowchart:
 * As some codes generate intermediate products that cannot be directly input into the database, it might be necessary to store certain results in a temporary CSV file. For these codes, the first step is to adjust their working directory, and secondly, we must ensure that the codes are executed in the correct order. I will provide a sequence for running the entire code process. If you deviate from this sequence, you might make incorrect modifications to the database, resulting in potential errors during execution or the generation of faulty models.
 
 
+
+
 The link to get all the outputs of get_gamely_html directly without running codes for over 70 hours: https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing
+
+
+## H. Reproducting Results
+
+***Setup and data scraping:***
+* Create a Google Cloud Platform (GCP) account and set up a project.
+* Enable the necessary APIs for your project, such as the PostgreSQL API if you're using PostgreSQL.
+* Create a database on GCP.
+* After the GCP database has been set up completely, please follow the commands and instructions below.
+
+```linux
+
+git clone git@github.com:ZixuanXu0116/2023-24-NBA-Championship-Prediction.git
+
+cd 2023-24-NBA-Championship-Prediction
+
+pip install -r requirements.txt 
+
+```
+
+* Then create a .env file in the same format as demo.env by changing the attributes inside like passwords, host, and database_name to the ones of your own database. You can edit the content in the demo.env directly and then run:
+
+
+```python
+cp demo.env .env
+
+```
+
+* In this way, you will set up the dotenv file for loading data into the database, then run the following Python code:
+
+```python
+python3 code/data_scraping/get_NBA_data.py
+
+```
+
+* Since the data of the NBA 2023-24 Regular Season will be updated for now (2023/11), i.e. almost new game stats every day, we provide a code to update data automatically every day. You can set up an automatic code execution in the following method in your terminal:
+
+```python
+crontab -e
+0 0 * * * your_directory/update_data.py
+
+```
