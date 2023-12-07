@@ -4,7 +4,7 @@
 Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Suqian Qi](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), [Joseph Williams](https://github.com/josephwms)
 
 ## Introduction
-We aim to build a prediction pipeline for an entire NBA season and postseason. Current leading industry methods are complex, really complex: https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/.  We seek to design the best possible product from the ETL to the final prediction, the significant techniques we used in the project include at least K-means clustering, random forest classification, and Tableau Visualization.  We hope you enjoy it!
+We aim to build a prediction pipeline for an entire NBA season and postseason. Current leading industry methods are complex, really complex: https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/.  We seek to design the best possible product from the ETL to the final prediction.  Significant techniques we used in the project include K-means clustering, random forest classification, and Tableau Visualization.  We hope you enjoy it!
 
 
 ## A. Data Scraping and Preparation
