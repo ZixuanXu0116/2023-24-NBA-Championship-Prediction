@@ -1,6 +1,24 @@
 # 2023-24-NBA-Championship-Prediction
 
 
+![NBA Playoffs](visualizations/Playoffs.png)
+
+## A. Data Scraping and Loading
+ 
+***Source:*** We scraped the NBA normal and advanced data of players and teams in playoffs and regular seasons from https://www.basketball-reference.com/
+
+
+***Execution method:*** To execute the code and load the data to your database, you should:
+* Create a Google Cloud Platform (GCP) account and set up a project.
+* Enable the necessary APIs for your project, such as the PostgreSQL API if you're using PostgreSQL.
+* Create a database on GCP.
+* After the GCP database has been set up completely, please follow the commands and instructions below.
+
+```linux
+
+git clone git@github.com:ZixuanXu0116/2023-24-NBA-Championship-Prediction.git
+
+
 
 
 Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Qi Suqian](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), (Joseph Williams)[https://github.com/josephwms]
