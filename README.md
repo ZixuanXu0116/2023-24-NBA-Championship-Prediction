@@ -66,11 +66,13 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 ## C. Result & Model evaluation
 
-* With the pipeline above, we can predict the champion of the 2022-23 season. Here are the predicted vs actual results for the 2022-2023 season:
+ Here are the predicted vs actual results for the 2022-2023 season:
 
-###Predicted Playoffs
+### Actual Playoffs
 
 ![Actual Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
+
+### Predicted Playoffs
 
 ![Predicted Playoffs](visualizations/predicted_playoffs_bracket_tree_plot.png)
 
@@ -83,9 +85,10 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
   
 ## D. Limitations
-* One main limitation of this plan is that we didn't separately train of model on playoff data and regular season data; instead, we used a model trained on regular season data to predict playoffs. Ideally, a dedicated training for previous seasons' playoff data should be done, but due to time constraints, we couldn't manage that.
 
-* Additionally, for rookie players and those who didn't play in the previous season, we used current season data. This approach isn't ideal as it incorporates future information to predict the future, but due to time limitations, we temporarily adopted this method to ensure the completion of the entire process.
+* One main limitation of this plan is that we didn't train a separate model for the playoff data; instead, we still used the model trained on regular season data to predict playoffs (due to limited time). Ideally, a dedicated training for previous seasons' playoff data should be done.
+
+* Additionally, for rookie players and those who didn't play in the previous season, we used current season data. This approach isn't ideal as it incorporates future information to predict the future, but again due to time limitations, we temporarily adopted this method to ensure the completion of the entire process.
 
 * Another area for potential improvement is exploring additional methods to enhance the accuracy of our model predictions.  See the earlier link (https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/). We might engage in more feature engineering, refining the selection of truly valuable features. For instance, in clustering, we can seek more precise and professionally segmented data to define clusters. We could also experiment with creating additional clusters or combining existing ones to identify the most effective combinations for prediction, rather than being confined to a single configuration.
  
