@@ -3,7 +3,7 @@
 
 
 
-Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Qi Suqian](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), [Joseph Williams](https://github.com/josephwms)
+Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Suqian Qi](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), [Joseph Williams](https://github.com/josephwms)
 
 ## Introduction
 We aim to accurately predict an entire NBA season and postseason. Current leading industry methods are complex, really complex: https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/.  We seek to design the best possible model using only a few novel features, namely: machine learning, K-means clustering, team ability matrices and random forest classifiers.  We hope you enjoy!
