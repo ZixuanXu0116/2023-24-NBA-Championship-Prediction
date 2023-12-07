@@ -60,7 +60,7 @@ NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-pre
 
 ## C. Our Process: Overview
 
-![NBA Prediction Flow](visualizations/Updated-NBA-prediction.png)
+![NBA Prediction Flow](visualizations/Updated2-flowchart.drawio.png)
 
 
 
