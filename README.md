@@ -71,8 +71,7 @@ NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-pre
 ###Predicted Playoffs
 *Munazza Vis1*
 
-###Actual Playoffs
-*Munazza Vis2*
+![Actual Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
 
 * For the model evaluation, we use accuracy as our metric. Here is our report:
 *Input table*
