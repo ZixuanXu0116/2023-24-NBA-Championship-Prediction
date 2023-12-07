@@ -1,7 +1,5 @@
 # 2023-24-NBA-Championship-Prediction
 
-<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="50%">
-
 
 Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Suqian Qi](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), [Joseph Williams](https://github.com/josephwms)
 
@@ -64,13 +62,17 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 * After simulating the regular season using the simulate_regular_season.py, we were able to identify the final top eight teams for each conference.  We conclude our process by running the simulate_playoffs.py, which predicts outcomes and winners for each round of the playoffs, taking into account home team advantage for each match (very relevant in playoffs!). We will let the results of all the playoff series output in the terminal, so you will witness the birth of a predicted NBA champion!
 
 
-## C. Result & Model evaluation
+## C. Result & Model Evaluation
 
- Here are the predicted results for the 2022-2023 playoffs.  For this particular simulation, we were able to accurately predict nine out of the sixteen total playoff teams.  Actual outcome can be seen at the top of our repo.
+ Here are the predicted vs actual results for the 2022-2023 playoffs.  For this particular simulation, we were able to accurately predict nine out of the sixteen total playoff teams.
 
-### Predicted Outcome
+### Predicted Results
 
 <img src="visualizations/predicted_playoffs_bracket_tree_plot.png" width="110%">
+
+### Actual Results
+
+<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="400">
 
 
 ### Model Evaluation
