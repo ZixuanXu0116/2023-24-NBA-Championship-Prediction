@@ -60,6 +60,8 @@ Flowchart:
 ***Data Cleaning:***
 * The Raw data of players and teams are huge and messy, so we need to roughly clean and summarize the data. Firstly, we scrape regular and advanced player and team summary statistics for each season, differentiating between playoffs and regular seasons, resulting in 2 * 2 * 2 = 8 tables. Next, we scrape HTML files containing game-by-game data from the same website. These data allow us to retrieve each player's performance and game outcomes for every match. We then utilize the code in the "manipulation" folder for data cleaning and creating new tables. As a result, we create a **Player Ability Cluster Matrix** using some of the previously obtained eight tables.
 
+![Players ability clusters](visualizations/Updated-Clusters.png)
+
 ***Construct Player Ability Vector:***
 * We utilized the K-means machine learning classification algorithm for the Player Ability Cluster Matrix. Different attributes were employed to classify distinct abilities, and we devised custom weights to calculate the ranking of each cluster. Consequently, we constructed a **Player Ability Vector**. Each player is measured by seven attributes: shooting, peri_def, playmaker, pro_rim, efficiency, influence, and scoring. Each attribute ranges from 0 to 5, where 0 signifies the weakest ability in the respective attribute, while 5 indicates the strongest. Here is an example:(screenshot)
 
