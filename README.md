@@ -12,84 +12,86 @@ We aim to build a prediction pipeline for an entire NBA season and postseason. C
 ## A. Data Scraping and Preparation
  
 ***Source:*** 
-* Data was primiarily scraped from https://www.basketball-reference.com/. We begin by scraping player and team summary statistics for each season, differentiating between season and playoff data. Next, we scrape HTML files containing game-by-game data, allow us to retrieve each player's performance and game outcomes for every match.
+* Data was scraped from https://www.basketball-reference.com/. We scrape player and team summary statistics for each season, differentiating between the regular season and playoffs data. Next, we scrape HTML files containing game-by-game data, allowing us to retrieve each player's performance and game outcomes for every match.
 
+* A brief work flow of our pipeline is provided below:
+
+![NBA Prediction Flow](visualizations/Updated2-flowchart.drawio.png)
 
 ***Construct Player Ability Cluster Vector:***
-* After obtaining our raw data, we utilized a K-means machine learning classification algorithm for the Player Ability Cluster Matrix. Different attributes were employed to classify distinct abilities, and we devised custom weights to calculate the ranking of each cluster. 
+* After obtaining our raw data, we utilized a K-means machine learning classification algorithm for the Player Ability Cluster Vector. Different attributes were employed to classify distinct abilities, and we devised custom weights to calculate the ranking of each cluster. 
 
 ![Players ability clusters](visualizations/Updated-Clusters.png)
 
 
-* The result is a **Player Ability Vector**. Each player is measured by seven attributes: shooting, peri_def, playmaker, pro_rim, efficiency, influence, and scoring. Each attribute ranges from 0 to 5, where 0 signifies the weakest ability in the respective attribute, while 5 indicates the strongest. Here is an example:(screenshot)
+* The result is a **Player Ability Vector**. Each player is measured by seven attributes: shooting, peri_def, playmaker, pro_rim, efficiency, influence, and scoring. Each attribute ranges from 0 to 5, where 0 signifies the weakest ability in the respective attribute, while 5 indicates the strongest.
 
-![Team ability clusters](visualizations/team_cluster_matrix.jpeg)
+* Here is an example dashboard by Tableau to briefly show how the clusters work
 
-*Zixuan Clippers Chart*
+LAL & LAC Players' Scoring & shooting to influence: (https://public.tableau.com/app/profile/zixuan.xu7872/viz/LALLACPlayersScoringShootingtoinfluence/Sheet2#1)
 
 
 ***Predict Next Year's Player Ability Vector:***
-* Since our model will only use previous year data for predicting a given year, we want some way to adjust a player's ability clusters for the next year of game play.  As a motivation, we used the following article:
+* For predicting the ability vector of a given year, we want some way to adjust last year's player's ability vectors to make it a predicted one for this year. As a motivation, we used the following article:
 
 NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-predicting-peak-age-nba-players-data-science-marcus-chua/
 
-* For the normal season, player's cluster scores were adjusted positively for younger players and negatively for older players.  For playoff data, we gave positive adjustments to players who had played in the previous year's playoffs (experienced under pressure) and negative adjustments to rookies, or players who had not played in previous year's playoffs.  See below visual for interpretation:
+* For the regular season, player's cluster scores were adjusted positively for younger players and negatively for older players. For playoffs, we gave positive adjustments to players who had played in the previous year's playoffs (experienced under pressure) and negative adjustments to rookies, or players who had not played in the previous year's playoffs. See below for the interpretation:
 
-*Zixuan Age Chart*
+Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.xu7872/viz/InfluenceabilitychangevsAge/Sheet2#1)
 
 ***Construct Team Ability Matrix:***
-* Having obtained the ability vectors for each player in each regular season and playoff, it is natural to establish a **Team Ability Matrix**. For each team, we select the nine players with the most playing time (5 starters and 4 key bench players): these are the team's key players. Next, we form a 9x7 ability matrix with these nine players and their seven attributes. Finally, we add relevant variables of: age, on-court positions, time played, and game played. The result is a **Team Ability Matrix** for each team and season, for both regular season and playoff formats. Here is an example:
+* Having obtained the ability vectors for each player in each regular season and playoffs, it is natural to establish a **Team Ability Matrix**. For each team, we select the nine players with the most playing time (5 starters and 4 key bench players): these are the key players of a team. Next, we form a 9x7 ability matrix with these nine players and their seven attributes' cluster values. Finally, we add some other columns of age, on-court positions, time played, and game played. The result is a **Team Ability Matrix** for each team and season, for both regular season and playoff formats. Here is an example:
 
 
-*Formatted df of player ability matrix, or screenshot*
+![Team ability clusters](visualizations/team_cluster_matrix.jpeg)
+
 
 ***Get Game Schedule:***
-* After obtaining the ability matrix, the next challenge is to acquire the schedule for the entire season. In a league with 30 teams, a regular season typically involves each team playing 82 games. Therefore, the total number of games in a season is 82 × 15, equal to 1230 games. We leverage game-by-game scraped data to form a schedule for each team reporting home team, away team and win/loss.  This schedule is invaluable for our next step: model training!
+* After obtaining the ability matrix, the next challenge is to acquire the schedule for the entire season. In a league with 30 teams, a regular season typically involves each team playing 82 games. Therefore, the total number of games per season is 82 × 15, 1230 games in total. We utilized the game-by-game data to form a schedule for each team reporting the game date, home team, away team, and the win/loss of the home team. This schedule is necessary for our next step: model training!
 
 
 
 ## B. Making Prediction
 
 ***Construct Prediction Model:***
-* With all the data prepared, we can proceed with the predictions. To predict the result of any game, we construct a machine-learning model. We treat the ability/attribute matrices for the two teams involved as the total features and include a result column to serve as the real outcome for validation. By training the model on the results of all games from the 2015 season to the 2022 season, we aim to predict the outcomes of games in the 2023 season.
+* With all the data prepared, we can proceed with the predictions. To predict the result of any game, we construct a machine-learning model. We treat the ability/attribute matrices for the two teams as the total features for predicting the result of a single game. The result column serves as the real outcome of each game and is used for validation and evaluation. By training the model on the results of all games from the 2015 to 2022 season, we aim to predict the outcomes of games in the 2023 season. For the simulation of each game, we can repeat n times by setting an iteration parameter, and choose the majority as the winner of that game.
 
 ***Play-in Games Prediction:***
-* Since the rule of playoff seasons changed after COVID-19, we added the play-in games into consideration. For the 2022-2023 season we obtained the predicted results for each game. Then, we calculated the total wins and losses for each team, allowing us to rank them. We selected teams that ranked 7th to 10th in both the Eastern and Western Conferences, which would participate in play-in games. Next we designed an algorithm for these teams to compete in play-in games to determine which team wins the play-in spot in the playoffs. To raise the level of engagement, there is a component which allows users to input the second round matchup of the play-in format.
+* Since the rule of entering the playoffs changed after COVID-19, we added the play-in games into consideration. For the 2022-2023 regular season, we obtained the predicted results for each game. Then, we calculated the total wins and losses for each team in this season, allowing us to rank them. We selected teams that ranked 7th to 10th in both the Eastern and Western Conferences, which would participate in the play-in games. Next, we designed an algorithm to simulate the play-in games based on the real rules so that we can determine which team makes the playoffs. To let the users gain engagement in the simulating process, there is a component that allows users to input the second-round matchup of the play-in games.
 
-***Regular Season & Playoffs Prediction:***
-* After simulating the regular season using the "simulate regular season" Python file, we able to identify the final top eight teams for each conference (1st-7th seeded, and the 8th seeded play-in team).  We conclude our process by running the "simulate_playoffs" script, which predicts outcomes and winners for each round of the playoffs, taking into account home team advantage for each match (very relevant in playoffs!). The process is repeated n times, and the team which comes out on top the most amount of times is the predicted NBA champion!
-
-
-## C. Our Process: Overview
-
-![NBA Prediction Flow](visualizations/Updated2-flowchart.drawio.png)
+***Playoffs Prediction:***
+* After simulating the regular season using the simulate regular season.py, we were able to identify the final top eight teams for each conference.  We conclude our process by running the simulate_playoffs.py, which predicts outcomes and winners for each round of the playoffs, taking into account home team advantage for each match (very relevant in playoffs!). and the team that comes out on top the most amount of times is the predicted NBA champion!
 
 
+## C. Result & Model evaluation
 
-## D. Result & Model evaluation
-
-* With all codes provided before, we can predict the champion of 2023. Here are the predicted vs actual results for the 2022-2023 season:
+* With the pipeline above, we can predict the champion of the 2022-23 season. Here are the predicted vs actual results for the 2022-2023 season:
 
 ###Predicted Playoffs
-*Munazza Vis1*
 
 ![Actual Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
 
-* For the model evaluation, we use accuracy as our metric. Here is our report:
-*Input table*
+![Predicted Playoffs](visualizations/Updated2-playoffs-actual.drawio.png)
+
+* For the model evaluation, here is our report:
+
+![Evaluation Metrics](visualizations/evaluation_report.png)
+
+
 
 
   
-## E. Limitations
+## D. Limitations
 * One main limitation of this plan is that we didn't separately train of model on playoff data and regular season data; instead, we used a model trained on regular season data to predict playoffs. Ideally, a dedicated training for previous seasons' playoff data should be done, but due to time constraints, we couldn't manage that.
 
 * Additionally, for rookie players and those who didn't play in the previous season, we used current season data. This approach isn't ideal as it incorporates future information to predict the future, but due to time limitations, we temporarily adopted this method to ensure the completion of the entire process.
 
-* Another area for potential improvement is exploring additional methods to enhance the accuracy of our model predictions.  See earlier link (https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/). We might engage in more feature engineering, refining the selection of truly valuable features. For instance, in clustering, we can seek more precise and professionally segmented data to define clusters. We could also experiment with creating additional clusters or combining existing ones to identify the most effective combinations for prediction, rather than being confined to a single configuration.
+* Another area for potential improvement is exploring additional methods to enhance the accuracy of our model predictions.  See the earlier link (https://fivethirtyeight.com/methodology/how-our-nba-predictions-work/). We might engage in more feature engineering, refining the selection of truly valuable features. For instance, in clustering, we can seek more precise and professionally segmented data to define clusters. We could also experiment with creating additional clusters or combining existing ones to identify the most effective combinations for prediction, rather than being confined to a single configuration.
  
 * Given that the current combination incorporates subjective elements based on our understanding of basketball and the NBA, exploring various combinations may provide better predictive outcomes. Adjusting the weights assigned to player improvement and regression, based on a more realistic or finely segmented allocation, is another aspect to explore.
 
-## F. Further Improvements
+## E. Further Improvements
 
 * We could consider experimenting with different models. While our current attempts have been somewhat limited to machine learning, venturing into deep learning might yield higher prediction accuracy. We possibly need more parameter tuning combined with some grid search methods. However, it's important to note that there's no guarantee of a definite improvement, but it's a direction worth exploring and putting effort into.
 
@@ -103,7 +105,7 @@ NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-pre
 
 * We also wrote code to update the database, focusing on the data from the current 2023-24 season. Our original intention was to create a predictive model that could be updated in real-time daily. However, due to time constraints, we only managed to accomplish the basic task of updating fundamental data. We did not complete the integration of the updated data with the model or even produce an interactive real-time updating dashboard. Insufficient manpower and time hindered us from achieving this, but it remains an area for future improvement and enhancement.
 
-## G. Things to Mention
+## F. Things to Mention
 
 * Throughout the entire process of data manipulation, model development, and simulating match results, there are indeed some challenging aspects. The first significant challenge is the considerable time required to extract HTML data for each game from the monthly game HTML. With data spanning 10 seasons and approximately 1230 games per season, this totals over 10,000 games. The complexity of each game's data, coupled with potential timeouts during scraping, may necessitate around 70 hours for data retrieval.
 
@@ -117,7 +119,7 @@ NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-pre
 This zip provides the outputs for get_gamely_html (without running codes for over 70 hours!): https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing
 
 
-## H. Reproducting Results
+## G. Reproducing Results
 
 ***Setup and data scraping:***
 * Create a Google Cloud Platform (GCP) account and set up a project.
@@ -158,6 +160,3 @@ crontab -e
 
 ```
 
-*Zixuan you can continue using this format or you can do a faster paragraph.  See below example from the project that Prof shared on his LinkedIN*
-
-*First, get the datasets. Put the .csv.gz files in the directory named united-states_new-york-city under cleaning_code_from_lauri/0. Raw Data. Run 1. Download and compile data/Aggregate Listings Data.ipynb. This creates NYC_Data_wideALL_2021.csv.gz and NYC_Data_longALL_2021.csv.gz in 1. Download and compile data. Copy the file demo.env to .env and modify it by providing the credentials accordingly, both in /code/ and cleaning_code_from_lauri/2. Clean data/. Then, run 2. Clean data/1st_stage_panel_data_cleaning.ipynb. This creates NYC_1stStageClean_2021 in Saved data and puts in into the SQL database (We used Postgres). Plus, you need to update those in readtable.py, which has a function to query relevant columns needed for the analysis. maps.ipynb spits out data/newnh_airbnb_2021.csv and maps. neighborhood_distances.py then uses it to spit out cleaned_data_updated.csv. This is used for baseline analyses. We use the entire dataset we have for the predictive model building. analysis_visualizations.ipynb gives you the graphs and To build our predict models, we use readtable.py to load data into word2vec_.ipynb and predict.ipynb. These files build our word2vec and GBM price predictive models. Lasso_model.ipynb runs the lasso model. These include step by step detailed instructions and comments. Then, import the functions from readtable.py and predict.ipynb into gbm_streamlit.py to create a dashboard from the GBM model. If using a GCP instance, make sure your firewall settings allow the corresponding connection.*
