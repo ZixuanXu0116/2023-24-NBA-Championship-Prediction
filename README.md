@@ -23,6 +23,8 @@ We aim to build a prediction pipeline for an entire NBA season and postseason. C
 
 * The result is a **Player Ability Vector**. Each player is measured by seven attributes: shooting, peri_def, playmaker, pro_rim, efficiency, influence, and scoring. Each attribute ranges from 0 to 5, where 0 signifies the weakest ability in the respective attribute, while 5 indicates the strongest. Here is an example:(screenshot)
 
+![Team ability clusters](visualizations/team_cluster_matrix.png)
+
 *Zixuan Clippers Chart*
 
 
