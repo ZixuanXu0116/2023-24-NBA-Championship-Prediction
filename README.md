@@ -1,5 +1,7 @@
 # 2023-24-NBA-Championship-Prediction
 
+![NBA Playoffs](visualizations/Playoffs.png)
+
 ## A. Data Scraping and Loading
  
 ***Source:*** We scraped the NBA normal and advanced data of players and teams in playoffs and regular seasons from https://www.basketball-reference.com/
