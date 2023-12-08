@@ -183,7 +183,7 @@ if __name__ == "__main__":
     progress_bar = tqdm(total=total_iterations, desc="Processing")
 
 
-    new_directory = os.path.join(os.getcwd(), "code", "data_scraping")
+    new_directory = os.path.join(os.getcwd(), "code", "scraping")
     os.chdir(new_directory)
 
     for target_type in ['player', 'team']:
