@@ -123,7 +123,7 @@ This zip provides the outputs for get_gamely_html (without running codes for ove
 
 ## G. Reproducing Results
 
-***Setup and data scraping:***
+***Setup:***
 * Create a Google Cloud Platform (GCP) account and set up a project.
 * Enable the necessary APIs for your project, such as the PostgreSQL API if you're using PostgreSQL.
 * Create a database on GCP.
@@ -147,7 +147,9 @@ cp demo.env .env
 
 ```
 
-* In this way, you will set up the dotenv file for loading data into the database, then run the following Python code, please note that if you wanna run this code below and you are connecting our database, you should first delete the tables named nba_playoffs/regular_normal/advanced_player/team_data, 8 tables in total in our database in the Dbeaver, and then run the following code:
+***Scraping Season Data:***
+
+* In this way, you will set up the dotenv file for loading data into the database, and then we start to run Python codes to scrape data, please note that if you wanna run this code below and you are connecting to our database, you should first delete the tables named 'nba_playoffs/regular_normal/advanced_player/team_data', 8 tables in total in our database using the Dbeaver, otherwise you will create the duplicate of data when there already exists the same tables in the database.
 
 ```python
 python3 code/scraping/get_NBA_data.py
@@ -164,14 +166,17 @@ crontab -e
 0 0 * * * (your_directory)/code/scraping/update_data.py
 
 ```
-Then we start to get the game-by-game data for each season using the following codes, first get the monthly HTML containing game-by-game in each month:
+
+***Scraping Game-By-Game Data:***
+
+* Then we start to get the game-by-game data for each season using the following codes, first get the monthly HTML containing game-by-game in each month:
 
 ```python
 python3 code/scraping/get_monthly_html.py
 
 ```
 
-When you execute the code, you may need to install the following packages to let the playwright execute correctly.
+* When you execute the code, you may need to install the following packages to let the playwright execute correctly.
 
 ```linux
 sudo apt-get install libatk1.0-0 \
@@ -186,12 +191,23 @@ sudo apt-get install libatk1.0-0 \
                      libasound2
 ```
 
-Then run the following code to get the Gamely HTML containing game-by-game data for each game in each season, it will be very time-consuming work. ***If you don't wanna run this for over 70 hours, you can choose to directly use the organized Gamely HTML zip folder for each season inside this Google Drive Link:*** [https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing](https://drive.google.com/file/d/1k8zsEqM_jZhWDjrp_ucFtuAPou4i7BM_/view?usp=sharing). Put each folder inside it to the 
-
+* Then run the following code to get the Gamely HTML containing game-by-game data for each game in each season, it will be very time-consuming work. 
 
 ```python
 python3 code/scraping/get_gamely_html.py
 
 ```
+
+* After you run it, you will get game-by-game HTML files inside the code/scraping/data/scores. You need to select the games that happened in the regular season for each season and organize each of them into different folders. Name the folder as 'scores_{season}' based on the season you are organizing. Put each of them under the code/scraping/data folder. This takes over 70 hours due to the big workload and TimeoutErrors for the scraping. ***If you don't wanna run this for over 70 hours, you can choose to directly use the organized Gamely HTML zip folder for each season inside this Google Drive Link:*** [https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing](https://drive.google.com/file/d/1k8zsEqM_jZhWDjrp_ucFtuAPou4i7BM_/view?usp=sharing). Put each folder (scores_{year)) (inside the zip from the Google Drive link) to the code/scraping/data folder. In these folders, I have picked out all the regular season games for all the seasons. 
+
+* After we get all the HTML for each game of each season, run the following code:
+* 
+```python
+python3 code/scraping/load_game_data_to_database.py
+```
+
+Then you will load the game-by-game data into the database, the table name will be 'nba_game_by_game_regular_data'. This time, no worries about the duplicate of data because we use if_exists='replace' for load_game_data_to_database.py.
+
+
 
 
