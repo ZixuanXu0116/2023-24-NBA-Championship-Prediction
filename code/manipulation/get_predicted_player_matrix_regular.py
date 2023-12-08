@@ -49,9 +49,9 @@ if __name__ == "__main__":
                 elif 24 <= age <= 27:
                     attributes = attributes.apply(lambda x: x + 0.25 if x != 5 else x)
                 elif 33 <= age <= 35:
-                    attributes = attributes.apply(lambda x: x - 0.25 if x != 0 else x)
+                    attributes = attributes.apply(lambda x: x if x != 0 else x)
                 elif age >= 36:
-                    attributes = attributes.apply(lambda x: x - 0.5 if x != 0 else x)
+                    attributes = attributes.apply(lambda x: x - 0.2 if x != 0 else x)
 
                 '''Update the player's attributes in the new DataFrame'''
 
