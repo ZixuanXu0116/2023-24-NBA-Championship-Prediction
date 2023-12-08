@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 from database import engine
 import warnings
 from tqdm import tqdm
