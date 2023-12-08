@@ -6,7 +6,9 @@ from tqdm import tqdm
 warnings.filterwarnings('ignore')
 
 '''Step 1: Create a new DataFrame for the combined data'''
-columns = ['Player', 'Pos', 'Age', 'Tm', 'MP', 'G', 'shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring','season']
+columns = ['Player', 'Pos', 'Age', 'Tm', 'MP', 'G', 'shooting', 'peri_def', 'playmaker', 
+           'pro_rim', 'efficiency', 'influence', 'scoring', 'season']
+           
 player_cluster_matrix = pd.DataFrame(columns=columns)
 
 def get_single_season_cluster_matrix(season, game_type):
@@ -37,7 +39,7 @@ if __name__ == "__main__":
 
                 '''Step 4: Age-based adjustments to attributes'''
                 age = player_attributes['Age']
-                attributes = [['shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']]
+                attributes = player_attributes[['shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']]
                 if 18 <= age <= 23:
                     attributes = attributes.apply(lambda x: x + 0.5 if x != 5 else x)
                 elif 24 <= age <= 27:
