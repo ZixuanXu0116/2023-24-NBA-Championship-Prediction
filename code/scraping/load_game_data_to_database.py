@@ -8,6 +8,8 @@ import re
 from datetime import date
 warnings.filterwarnings('ignore')
 
+new_directory = os.path.join(os.getcwd(), "code", "scraping")
+os.chdir(new_directory)
 DATA_DIR = os.path.join(os.getcwd(), 'data')
 
 def get_subfolders(folder_path):
@@ -69,7 +71,7 @@ def get_stats(soup, team, stat):
     
     """
     
-    df = pd.read_html(str(soup), attrs={'id':f'box-{team}-game-{stat}'}, index_col=0)[0].fillna(0) '''indexcol will be the players column'''
+    df = pd.read_html(str(soup), attrs={'id':f'box-{team}-game-{stat}'}, index_col=0)[0].fillna(0)
 
     return df
 
@@ -83,7 +85,7 @@ def get_game_season(soup):
         Int: the season of the game.  
     """
     id = soup.select('#bottom_nav_container')[0]
-    string= id.find_all('u')[3] '''this u tag has the exact season, so we use regex to extract it'''
+    string= id.find_all('u')[3]
     season = re.findall(r'\d{4}-\d{2}', str(string))[0]
     season = int(season[0:2] + season[-2:])
 
