@@ -10,13 +10,11 @@ from IPython.display import clear_output
 
 
 DATA_DIR = 'data'
-STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') '''data is a directory where standings will be located inside'''
+STANDINGS_DIR = os.path.join(DATA_DIR, 'standings')
 SCORES_DIR = os.path.join(DATA_DIR, 'scores')
-ACTUAL_MONTH_SCORES_DIR = os.path.join(DATA_DIR, 'actual_month_scores') '''data is a directory where standings will be located inside'''
 
 os.makedirs(STANDINGS_DIR, exist_ok = True)
 os.makedirs(SCORES_DIR, exist_ok = True)
-os.makedirs(ACTUAL_MONTH_SCORES_DIR, exist_ok=True)
 
 SEASONS = list(range(2015, 2025))
 
