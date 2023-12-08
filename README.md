@@ -154,7 +154,7 @@ python3 code/scraping/get_NBA_data.py
 
 ```
 
-Thus, I would recommend if you really wanna test the reproducibility, you'd better use your own GCP PostgreSQL database account as the .env and then run our code. If you don't want the boring process of retrieving data, you can directly use our database directly without running the code above.
+Thus, I would recommend if you really wanna test the reproducibility, you'd better use your own GCP PostgreSQL database account as the .env and then run our code. If you don't want the boring process of retrieving data, you can directly use our database directly without running the code above, no matter which way you choose, the key is to follow the instructions.
 
 
 * Since the data of the NBA 2023-24 Regular Season will be updated for now (2023/12), i.e. almost new game stats every day, we provide a code to update data automatically every day. You can set up an automatic code execution in the following method in your terminal:
