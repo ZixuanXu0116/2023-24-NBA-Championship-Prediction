@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 from database import engine
 import warnings
 from tqdm import tqdm
@@ -29,14 +28,14 @@ if __name__ == "__main__":
             player_name = player_cur_playoffs['Player']
             team_name = player_cur_playoffs['Tm']
 
-'''Step 3: Check if the player is in the last playoffs DataFrame'''
+            '''Step 3: Check if the player is in the last playoffs DataFrame'''
             if player_name in df_last_playoffs['Player'].values:
                 '''If yes, get the player's attributes from the 2015 playoffs DataFrame'''  
                 player_attributes = df_last_playoffs[df_last_playoffs['Player'] == player_name].iloc[0]
-            '''Update the team name to the current team'''
+                '''Update the team name to the current team'''
                 player_attributes['Tm'] = team_name
 
-            '''Step 4: Age-based adjustments to attributes'''
+                '''Step 4: Age-based adjustments to attributes'''
                 age = player_attributes['Age']
                 attributes = [['shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']]
                 if 18 <= age <= 23:
@@ -44,9 +43,9 @@ if __name__ == "__main__":
                 elif 24 <= age <= 27:
                     attributes = attributes.apply(lambda x: x + 0.25 if x != 5 else x)
                 elif 33 <= age <= 35:
-                    attributes = attributes.apply(lambda x: x - 0.25 if x != 0 else x)
+                    attributes = attributes.apply(lambda x: x if x != 0 else x)
                 elif age >= 36:
-                    attributes = attributes.apply(lambda x: x - 0.5 if x != 0 else x)
+                    attributes = attributes.apply(lambda x: x - 0.2 if x != 0 else x)
 
                 '''Update the player's attributes in the player_cluster_matrix'''
                 player_attributes[['shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']] = attributes
