@@ -6,6 +6,8 @@ from tqdm import tqdm
 
 SEASONS = list(range(2015, 2025))
 
+new_directory = os.path.join(os.getcwd(), "code", "scraping")
+os.chdir(new_directory)
 DATA_DIR = 'data'
 STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') 
 SCORES_DIR = os.path.join(DATA_DIR, 'scores')
