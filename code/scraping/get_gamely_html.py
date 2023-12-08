@@ -11,11 +11,12 @@ from IPython.display import clear_output
 new_directory = os.path.join(os.getcwd(), "code", "scraping")
 os.chdir(new_directory)
 DATA_DIR = 'data'
-STANDINGS_DIR = os.path.join(DATA_DIR, 'standings')
+STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') 
 SCORES_DIR = os.path.join(DATA_DIR, 'scores')
 
 os.makedirs(STANDINGS_DIR, exist_ok = True)
 os.makedirs(SCORES_DIR, exist_ok = True)
+
 
 SEASONS = list(range(2015, 2025))
 
@@ -87,7 +88,7 @@ def get_html(url, selector, sleep=4, retries=6):
         print('Fail')
 
 
-def scrape_boxscores(standing_file, season_year): '''getting the paths of the htmls'''
+def scrape_boxscores(standing_file, season_year):
     """
           Input:
             standing_file: path to the standings file (type: str)
@@ -107,25 +108,23 @@ def scrape_boxscores(standing_file, season_year): '''getting the paths of the ht
     hrefs = [l.get('href') for l in links]
     box_scores = [href for href in hrefs if href and 'boxscore' in href and '.html' in href]
     box_scores = [f'https://www.basketball-reference.com/{href}' for href in box_scores ]
-    '''print(f'Now scraping the box scores of the {standing_file.split("/")[-1]}')'''
 
     for url in tqdm(box_scores): 
 
-        save_path = os.path.join(SCORES_DIR, url.split('/')[-1]) '''saving in directory the name of the BOX SCORE'''
+        save_path = os.path.join(SCORES_DIR, url.split('/')[-1])
             
         if os.path.exists(save_path):     
             continue
 
-        html = get_html(url=url, selector='#content') '''grabing oly what we want from id selector'''
+        html = get_html(url=url, selector='#content')
         if not html:
             print(f'still nothing on the first attempt to get the whole {url} content')
-            continue '''if the link is broken or lagging we go on to the next '''
+            continue
         else:
-            '''print(f'attempt to get the {url} content succeed!')'''
             pass
             
         with open (save_path, 'w+', encoding="utf-8") as f:
-            f.write(html) '''content to be saved in the file  with specified name'''
+            f.write(html)
 
 
 
