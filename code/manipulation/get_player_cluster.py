@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
-import os
 import warnings
 from database import engine
 from tqdm import tqdm
