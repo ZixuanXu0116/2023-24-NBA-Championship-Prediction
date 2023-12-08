@@ -154,7 +154,7 @@ python3 code/scraping/get_NBA_data.py
 
 ```
 
-Thus, I would recommend if you really wanna test the reproducibility, you'd better use your own GCP PostgreSQL database account as the .env and then run our code. If you don't want the boring process of retrieving data, you can directly use our database directly without running the code above, no matter which way you choose, the key is to follow the instructions.
+Thus, I would recommend if you ***really wanna test the reproducibility, you'd better use your own GCP PostgreSQL database account as the .env*** and then run our code. If you don't want the boring process of retrieving data, you can ***directly use our database without running the code above***, no matter which way you choose, the key is to follow the instructions.
 
 
 * Since the data of the NBA 2023-24 Regular Season will be updated for now (2023/12), i.e. almost new game stats every day, we provide a code to update data automatically every day. You can set up an automatic code execution in the following method in your terminal:
@@ -169,6 +169,21 @@ Then we start to get the game-by-game data for each season using the following c
 ```python
 python3 code/scraping/get_monthly_html.py
 
+```
+
+When you execute the code, you may need to install the following packages to let the playwright execute correctly.
+
+```linux
+sudo apt-get install libatk1.0-0 \
+                     libatk-bridge2.0-0 \
+                     libcups2 \
+                     libxkbcommon0 \
+                     libatspi2.0-0 \
+                     libxdamage1 \
+                     libgbm1 \
+                     libpango-1.0-0 \
+                     libcairo2 \
+                     libasound2
 ```
 
 Then run the following code to get the Gamely HTML containing game-by-game data for each game in each season, it will be very time-consuming work. ***If you don't wanna run this for over 70 hours, you can choose to directly use the organized Gamely HTML zip folder for each season inside this Google Drive Link:*** [https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing](https://drive.google.com/file/d/1k8zsEqM_jZhWDjrp_ucFtuAPou4i7BM_/view?usp=sharing). Put each folder inside it to the 
