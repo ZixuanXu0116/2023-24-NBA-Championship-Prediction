@@ -80,9 +80,8 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 
 * For the model evaluation, here is our report:
-
-![Evaluation Metrics](visualizations/evaluation_report.png)
-
+* 
+<img src="visualizations/evaluation_report.png" width="120%">
 
 
 ## D. Limitations
