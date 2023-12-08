@@ -202,12 +202,15 @@ python3 code/scraping/get_gamely_html.py
 * After you run it, you will get game-by-game HTML files inside the code/scraping/data/scores. You need to select the games that happened in the regular season for each season and organize each of them into different folders. Name the folder as 'scores_{season}' based on the season you are organizing. Put each of them under the code/scraping/data folder. This takes over 70 hours due to the big workload and TimeoutErrors for the scraping. ***If you don't wanna run this for over 70 hours, you can choose to directly use the organized Gamely HTML zip folder for each season inside this Google Drive Link:*** [https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing](https://drive.google.com/file/d/1k8zsEqM_jZhWDjrp_ucFtuAPou4i7BM_/view?usp=sharing). Put each folder (scores_{year)) (inside the zip from the Google Drive link) to the code/scraping/data folder. In these folders, I have picked out all the regular season games for all the seasons. 
 
 * After we get all the HTML for each game of each season, run the following code:
-* 
+
 ```python
 python3 code/scraping/load_game_data_to_database.py
 ```
 
 Then you will load the game-by-game data into the database, the table name will be 'nba_game_by_game_regular_data'. This time, no worries about the duplicate of data because we use if_exists='replace' for load_game_data_to_database.py.
+
+### Note: Within the game data, there are some erroneous entries due to mistakes by official website record keepers or the scraping process. While some of these errors can be removed using code, others require a more tricky process, involving both code-based filtering and manual review. This is the most efficient way to fix this problem. For details and exact codes, please check code/scraping/check_database_problems.py. Again, you need to do this error-checking stuff only if you want to build your own database. If you want to use our database, please directly use the table named nba_game_by_game_regular_data in the database for the following operations without running the load_game_data_to_database.py and check_database_problems.py.
+
 
 
 
