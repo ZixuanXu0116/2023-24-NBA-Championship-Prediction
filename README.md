@@ -118,7 +118,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 
 
-This zip provides the outputs for get_gamely_html (without running codes for over 70 hours!): https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing
+This zip provides the outputs for get_gamely_html (without running codes for over 70 hours!): [https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing](https://drive.google.com/file/d/1k8zsEqM_jZhWDjrp_ucFtuAPou4i7BM_/view?usp=sharing)
 
 
 ## G. Reproducing Results
@@ -161,7 +161,22 @@ Thus, I would recommend if you really wanna test the reproducibility, you'd bett
 
 ```python
 crontab -e
-0 0 * * * code/scraping/update_data.py
+0 0 * * * (your_directory)/code/scraping/update_data.py
 
 ```
-Will update the following steps for reproducibility soon after the presentation!
+Then we start to get the game-by-game data for each season using the following codes, first get the monthly HTML containing game-by-game in each month:
+
+```python
+python3 code/scraping/get_monthly_html.py
+
+```
+
+Then run the following code to get the Gamely HTML containing game-by-game data for each game in each season, it will be very time-consuming work. ***If you don't wanna run this for over 70 hours, you can choose to directly use the organized Gamely HTML zip folder for each season inside this Google Drive Link:*** [https://drive.google.com/file/d/1rDECUtqfObDgGxkqTo-9oiiPt-PdRXNL/view?usp=sharing](https://drive.google.com/file/d/1k8zsEqM_jZhWDjrp_ucFtuAPou4i7BM_/view?usp=sharing). Put each folder inside it to the 
+
+
+```python
+python3 code/scraping/get_gamely_html.py
+
+```
+
+
