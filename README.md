@@ -150,7 +150,7 @@ cp demo.env .env
 * In this way, you will set up the dotenv file for loading data into the database, then run the following Python code:
 
 ```python
-python3 code/data_scraping/get_NBA_data.py
+python3 code/scraping/get_NBA_data.py
 
 ```
 
@@ -158,7 +158,7 @@ python3 code/data_scraping/get_NBA_data.py
 
 ```python
 crontab -e
-0 0 * * * your_directory/update_data.py
+0 0 * * * code/scraping/update_data.py
 
 ```
 Will update the following steps for reproducibility soon after the presentation!
