@@ -147,12 +147,15 @@ cp demo.env .env
 
 ```
 
-* In this way, you will set up the dotenv file for loading data into the database, then run the following Python code:
+* In this way, you will set up the dotenv file for loading data into the database, then run the following Python code, please note that if you wanna run this code below and you are connecting our database, you should first delete the tables named nba_playoffs/regular_normal/advanced_player/team_data, 8 tables in total in our database in the Dbeaver, and then run the following code:
 
 ```python
 python3 code/scraping/get_NBA_data.py
 
 ```
+
+Thus, I would recommend if you really wanna test the reproducibility, you'd better use your own GCP PostgreSQL database account as the .env and then run our code. If you don't want the boring process of retrieving data, you can directly use our database directly without running the code above.
+
 
 * Since the data of the NBA 2023-24 Regular Season will be updated for now (2023/12), i.e. almost new game stats every day, we provide a code to update data automatically every day. You can set up an automatic code execution in the following method in your terminal:
 
