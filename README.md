@@ -122,7 +122,7 @@ This zip provides the outputs for get_gamely_html (without running codes for ove
 
 ## G. Reproducing Results
 
-### Since we haven't retrieved the schedule of 2023-24 season, we try to test our model on 2022-23 season first, will update to the get the 2023-24 result soon! 
+### Since we haven't retrieved the schedule of the 2023-24 season, we tested our model on the 2022-23 season following the steps below, will update you to get the 2023-24 results soon! 
 
 ***Setup:***
 * Create a Google Cloud Platform (GCP) account and set up a project.
