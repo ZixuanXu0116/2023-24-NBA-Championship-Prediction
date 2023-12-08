@@ -8,7 +8,8 @@ from tqdm import tqdm
 from IPython.display import clear_output
 
 
-
+new_directory = os.path.join(os.getcwd(), "code", "scraping")
+os.chdir(new_directory)
 DATA_DIR = 'data'
 STANDINGS_DIR = os.path.join(DATA_DIR, 'standings')
 SCORES_DIR = os.path.join(DATA_DIR, 'scores')
