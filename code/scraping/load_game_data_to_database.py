@@ -55,7 +55,6 @@ def get_score_line(soup):
     except KeyError:
         score_row.rename(columns={0: 'Team', 'T': 'Total'}, inplace=True)
         score_row = score_row[['Team', 'Total']]
-    print(score_row)
 
     return score_row
 
