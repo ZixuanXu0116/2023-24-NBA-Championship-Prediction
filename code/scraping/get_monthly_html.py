@@ -36,10 +36,10 @@ def get_html(url, selector, sleep=4, retries=7):
 
         try:
             with sync_playwright() as p: 
-                browser = p.chromium.launch() '''await will actually wait for the async load of the website complete to lauch the browser'''
-                page = browser.new_page() '''page will be a new tab'''
+                browser = p.chromium.launch()
+                page = browser.new_page()
                 page.goto(url)
-                html = page.inner_html(selector) '''we gonna get only part of the html page'''
+                html = page.inner_html(selector)
 
         except playwrightTimeout:
             print(f'TimeoutError on the url {url}')
@@ -71,23 +71,22 @@ def scrapy_season(season):
     if html == None:
         print('still nothing on the first attempt to get the whole page content')
     else:
-        '''print('attempt to get the whole page content succeed!')'''
         pass
 
         
 
-    soup = BeautifulSoup(html, 'html.parser') '''type: ignore'''
+    soup = BeautifulSoup(html, 'html.parser')
     links = soup.find_all('a')
-    href = [l['href'] for l in links] '''l is a hyperlink for a month'''
+    href = [l['href'] for l in links]
     stadings_pages = [f"https://www.basketball-reference.com{l}" for l in href]
 
-    for url in stadings_pages: '''navigate for each month page to save the file name first'''
-        save_path = os.path.join(STANDINGS_DIR, url.split('/')[-1]) '''saving in directory the name of the schedule month'''
+    for url in stadings_pages:
+        save_path = os.path.join(STANDINGS_DIR, url.split('/')[-1])
         '''print the save path'''
         print("save_path: ", save_path)
 
         '''checking if the file already exists except for the current month that needs to be downloaded everytime'''
-        if os.path.exists(save_path) and season != SEASONS[-1]: '''if the file already exists and it is not the current season'''
+        if os.path.exists(save_path) and season != SEASONS[-1]:
             continue
 
         '''grabbing table of month'''
