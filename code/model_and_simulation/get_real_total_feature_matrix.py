@@ -45,12 +45,12 @@ for col in dict_columns:
     index2 = str((col + 1) * 10 + 2)
 
     df[[f'Pos{index1}', f'MP{index1}', f'Age{index1}', f'shooting{index1}', f'peri_def{index1}', \
-        f'playmaker{index1}', f'pro_rim{index1}', f'efficiency{index1}', f'influence{index1}']] = \
-    temp1[['Pos', 'MP', 'Age', 'shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence']]
+        f'playmaker{index1}', f'pro_rim{index1}', f'efficiency{index1}', f'influence{index1}',f'scoring{index1}']] = \
+    temp1[['Pos', 'MP', 'Age', 'shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence', 'scoring']]
 
     df[[f'Pos{index2}', f'MP{index2}', f'Age{index2}', f'shooting{index2}', f'peri_def{index2}', \
-        f'playmaker{index2}', f'pro_rim{index2}', f'efficiency{index2}', f'influence{index2}']] = \
-    temp2[['Pos', 'MP', 'Age', 'shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence']]
+        f'playmaker{index2}', f'pro_rim{index2}', f'efficiency{index2}', f'influence{index2}',f'scoring{index2}' ]] = \
+    temp2[['Pos', 'MP', 'Age', 'shooting', 'peri_def', 'playmaker', 'pro_rim', 'efficiency', 'influence','scoring']]
 
 df = df.drop(columns = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14])
 df['season'] = season
