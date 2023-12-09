@@ -3,7 +3,6 @@ import time
 import zipfile
 from tqdm import tqdm
 from bs4 import BeautifulSoup
-from IPython.display import clear_output
 from playwright.sync_api import sync_playwright, TimeoutError as playwrightTimeout
 
 
