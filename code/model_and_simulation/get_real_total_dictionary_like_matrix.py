@@ -77,7 +77,7 @@ def load_team_data(season):
 
 
 game_info_list = []
-for season in tqdm(range(2015, 2025), desc="Processing years"):
+for season in tqdm(range(2015, 2025), desc='Processing years'):
 
     game_by_game_data = load_game_by_game_data(season)
     player_data = load_player_cluster_data(season)
@@ -169,6 +169,6 @@ df = pd.DataFrame(game_info_list)
 
 
 '''Save the df to a temp.csv file to temporarily keep the data'''
-new_directory = os.path.join(os.getcwd(), "code", "model_and_simulation") 
+new_directory = os.path.join(os.getcwd(), 'code', 'model_and_simulation') 
 os.chdir(new_directory)
 df.to_csv(os.path.join(os.getcwd(), 'temp_real.csv'), index = False)
