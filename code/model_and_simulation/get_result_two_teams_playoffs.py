@@ -3,8 +3,8 @@ import numpy as np
 from database import engine
 from generate_feature_matrix import get_feature_matrix
 
-def get_single_game_result(team1, team2, model):
 
+def get_single_game_result(team1, team2, model):
     query = f'SELECT * FROM playoffs_predicted_player_matrix_data WHERE season = 2023'
     matrix_df = pd.read_sql_query(query, engine)
 
@@ -24,13 +24,6 @@ def get_single_game_result(team1, team2, model):
     '''Make the final prediction based on the majority'''
 
     final_predictions = np.mean(all_predictions, axis=1) > 0.5
-    final_predictions = final_predictions.astype(int) 
+    final_predictions = final_predictions.astype(int)
 
     return final_predictions
-
-
-
-
-
-
-
