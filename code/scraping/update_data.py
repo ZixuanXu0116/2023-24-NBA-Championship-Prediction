@@ -20,11 +20,11 @@ def update_data(target_type, data_type):
 
     return ''
     
-new_directory = os.path.join(os.getcwd(), "code", "data_scraping")
+new_directory = os.path.join(os.getcwd(), 'code', 'data_scraping')
 os.chdir(new_directory)
 
 total_iterations = 2*2*1
-progress_bar = tqdm(total=total_iterations, desc="Processing")
+progress_bar = tqdm(total=total_iterations, desc='Processing')
 
 for target_type in ['player', 'team']:
         for data_type in ['normal', 'advanced']:
