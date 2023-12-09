@@ -1,7 +1,7 @@
-from bs4 import BeautifulSoup
 import os
-from playwright.sync_api import sync_playwright, TimeoutError as playwrightTimeout
 import time
+from playwright.sync_api import sync_playwright, TimeoutError as playwrightTimeout
+from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 SEASONS = list(range(2015, 2025))
