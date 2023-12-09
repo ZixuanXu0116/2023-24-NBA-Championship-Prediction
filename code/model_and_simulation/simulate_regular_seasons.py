@@ -31,7 +31,7 @@ model.fit(X_train, y_train)
 
 '''Make predictions on the test set'''
 
-num_iterations = 1
+num_iterations = 999
 
 '''Store the predictions for each iteration'''
 
