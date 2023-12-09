@@ -43,11 +43,11 @@ def get_season_schedule(season):
     return final_df
 
     
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     all_game_schedule = pd.DataFrame()
 
-    for season in tqdm(range(2015, 2025), desc="Processing years"):
+    for season in tqdm(range(2015, 2025), desc='Processing years'):
 
         df = get_season_schedule(season)
         all_game_schedule = pd.concat([all_game_schedule, df])
