@@ -8,7 +8,7 @@ from database import engine
 from bs4 import BeautifulSoup
 warnings.filterwarnings('ignore')
 
-new_directory = os.path.join(os.getcwd(), "code", "scraping")
+new_directory = os.path.join(os.getcwd(), 'code', 'scraping')
 os.chdir(new_directory)
 DATA_DIR = os.path.join(os.getcwd(), 'data')
 
@@ -17,7 +17,7 @@ def get_subfolders(folder_path):
     return subfolders
 
 def clean_html(box_score):
-    """ Info:
+    ''' Info:
         This function will clean the html file and return a soup object
         ---------------------------------------------------------------
         Input:
@@ -25,12 +25,12 @@ def clean_html(box_score):
         ---------------------------------------------------------------
         Output:
         soup: BeautifulSoup object
-        """
+        '''
     
-    with open(box_score, 'r', encoding="utf-8", errors='ignore') as f:
+    with open(box_score, 'r', encoding='utf-8', errors='ignore') as f:
         html = f.read()
     
-    soup = BeautifulSoup(html, features="lxml")
+    soup = BeautifulSoup(html, features='lxml')
     [f.decompose() for f in soup.select('tr.over_header')]
     [f.decompose() for f in soup.select('tr.thead')]
 
@@ -38,12 +38,12 @@ def clean_html(box_score):
 
 
 def get_score_line(soup):
-    """ 
+    ''' 
         Input:
         soup: BeautifulSoup object
         ---------------------------------------------------------------
         Output:
-        score_row: Dataframe with the score line of the game with total points.  """
+        score_row: Dataframe with the score line of the game with total points.  '''
 
     score_row = pd.read_html(str(soup), attrs={'id': 'line_score'})[0]
 
@@ -59,7 +59,7 @@ def get_score_line(soup):
     return score_row
 
 def get_stats(soup, team, stat):
-    """
+    '''
         Input:
         soup: BeautifulSoup object
         team: string with the team name
@@ -68,7 +68,7 @@ def get_stats(soup, team, stat):
         Output:
         df: Dataframe with the stats of the game. 
     
-    """
+    '''
     
     df = pd.read_html(str(soup), attrs={'id':f'box-{team}-game-{stat}'}, index_col=0)[0].fillna(0)
 
@@ -76,13 +76,13 @@ def get_stats(soup, team, stat):
 
 
 def get_game_season(soup):
-    """ 
+    ''' 
         Input:
         soup: BeautifulSoup object
         ---------------------------------------------------------------
         Output:
         Int: the season of the game.  
-    """
+    '''
     id = soup.select('#bottom_nav_container')[0]
     string= id.find_all('u')[3]
     season = re.findall(r'\d{4}-\d{2}', str(string))[0]
