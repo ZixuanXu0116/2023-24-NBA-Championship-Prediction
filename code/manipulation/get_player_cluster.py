@@ -9,7 +9,7 @@ warnings.filterwarnings('ignore')
 
 def pull_player_data(table_name, season):
 
-    sql_query = f"SELECT * FROM {table_name} WHERE season = {season}"
+    sql_query = f'SELECT * FROM {table_name} WHERE season = {season}'
 
     '''
     SQL code to create combined_table for regular season, 
@@ -135,7 +135,7 @@ def get_player_type_and_level(player_data, year, *feature_lists):
     return result_df
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     '''Defining cluster characteristics'''
     shooting_abl = ['3P', '3PAr', '3P%', 'FT%', 'USG%']
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     '''Outputting to csv of all players and their yearly regular season's clusters'''
     all_clustered_players_regular = pd.DataFrame()
     print('Starting Process Regular Season data')
-    for year in tqdm(range(2015, 2025), desc="Processing years"):
+    for year in tqdm(range(2015, 2025), desc='Processing years'):
         player_data = pull_player_data('nba_combined_regular_normal_player_data', year)
         result_df = get_player_type_and_level(player_data, year, shooting_abl, 
                                             peri_def_abl, playmkr_abl, pro_rim_abl, 
@@ -164,7 +164,7 @@ if __name__ == "__main__":
 
     all_clustered_players_playoffs = pd.DataFrame()
     print('Starting Process Playoffs data')
-    for year in tqdm(range(2015, 2024), desc="Processing years"):
+    for year in tqdm(range(2015, 2024), desc='Processing years'):
         player_data = pull_player_data('nba_combined_playoffs_normal_player_data', year)
         result_df = get_player_type_and_level(player_data, year, shooting_abl, 
                                             peri_def_abl, playmkr_abl, pro_rim_abl, 
