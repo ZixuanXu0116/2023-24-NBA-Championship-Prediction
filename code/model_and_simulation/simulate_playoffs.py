@@ -24,22 +24,21 @@ east_df = pd.read_sql_query(query, engine)
 
 '''Set up the playoff matchups'''
 playoff_matchups_west = [
-    (west_df.iloc[0]['Rankings'], west_df.iloc[7]['Rankings']),  
-    (west_df.iloc[1]['Rankings'], west_df.iloc[6]['Rankings']),  
-    (west_df.iloc[2]['Rankings'], west_df.iloc[5]['Rankings']),  
-    (west_df.iloc[3]['Rankings'], west_df.iloc[4]['Rankings'])   
+    (west_df.iloc[0]['Rankings'], west_df.iloc[7]['Rankings']),
+    (west_df.iloc[1]['Rankings'], west_df.iloc[6]['Rankings']),
+    (west_df.iloc[2]['Rankings'], west_df.iloc[5]['Rankings']),
+    (west_df.iloc[3]['Rankings'], west_df.iloc[4]['Rankings']),
 ]
 
 playoff_matchups_east = [
-    (east_df.iloc[0]['Rankings'], east_df.iloc[7]['Rankings']), 
-    (east_df.iloc[1]['Rankings'], east_df.iloc[6]['Rankings']),  
-    (east_df.iloc[2]['Rankings'], east_df.iloc[5]['Rankings']),  
-    (east_df.iloc[3]['Rankings'], east_df.iloc[4]['Rankings'])   
+    (east_df.iloc[0]['Rankings'], east_df.iloc[7]['Rankings']),
+    (east_df.iloc[1]['Rankings'], east_df.iloc[6]['Rankings']),
+    (east_df.iloc[2]['Rankings'], east_df.iloc[5]['Rankings']),
+    (east_df.iloc[3]['Rankings'], east_df.iloc[4]['Rankings']),
 ]
 
 
 def simulate_series(matchups):
-
     winning_teams = []
     for matchup in matchups:
         team2, team1 = matchup
@@ -48,14 +47,14 @@ def simulate_series(matchups):
         for game_number in range(1, 8):
             '''Determine the home and away teams based on the game number'''
             if game_number in [1, 2, 5, 7]:
-                home_team, away_team = team2, team1 
+                home_team, away_team = team2, team1
                 result = get_single_game_result(away_team, home_team, model)
                 if result == 1:
                     team2_wins += 1
                 else:
                     team1_wins += 1
             else:
-                home_team, away_team = team1, team2 
+                home_team, away_team = team1, team2
 
                 result = get_single_game_result(away_team, home_team, model)
                 if result == 1:
@@ -67,16 +66,17 @@ def simulate_series(matchups):
             if team1_wins == 4 or team2_wins == 4:
                 break
 
-        print(f"{team1} vs {team2} - {team1_wins}:{team2_wins} \
-                {f'{team1} wins' if team1_wins > team2_wins else f'{team2} wins'}")
-        
+        print(
+            f"{team1} vs {team2} - {team1_wins}:{team2_wins} \
+                {f'{team1} wins' if team1_wins > team2_wins else f'{team2} wins'}"
+        )
+
         winning_team = team1 if team1_wins > team2_wins else team2
         winning_teams.append(winning_team)
 
     print('Winners: ', winning_teams)
     print('------------------------------------------------------------------')
     return winning_teams
-
 
 
 '''Simulate each round'''
@@ -111,7 +111,9 @@ third_round_matchups.append((team1, team2))
 
 winning_teams = simulate_series(third_round_matchups)
 western_winner = winning_teams[0]
-western_winner_regular_wins = west_df[west_df['Rankings'] == western_winner]['Wins'].iloc[0]
+western_winner_regular_wins = west_df[west_df['Rankings'] == western_winner][
+    'Wins'
+].iloc[0]
 print('Western Winner is: ', western_winner)
 print('------------------------------------------------------------------')
 
@@ -150,7 +152,9 @@ winning_teams = simulate_series(third_round_matchups)
 print('Eastern Winner is: ', winning_teams[0])
 print('------------------------------------------------------------------')
 eastern_winner = winning_teams[0]
-eastern_winner_regular_wins = east_df[east_df['Rankings'] == eastern_winner]['Wins'].iloc[0]
+eastern_winner_regular_wins = east_df[east_df['Rankings'] == eastern_winner][
+    'Wins'
+].iloc[0]
 
 print(f'Final Matchup: {western_winner} - {eastern_winner}')
 
