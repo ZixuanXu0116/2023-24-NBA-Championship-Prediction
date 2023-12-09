@@ -42,5 +42,5 @@ if __name__ == "__main__":
     query = f'SELECT * FROM regular_predicted_player_matrix_data WHERE season = {season}'
     df = pd.read_sql_query(query, engine)
 
-    result_df = get_feature_matrix(schedule_df)
+    result_df = get_feature_matrix(schedule_df, df)
     result_df.to_sql('core_players_matrix_2023_regular', con=engine, if_exists='replace', index=False)
