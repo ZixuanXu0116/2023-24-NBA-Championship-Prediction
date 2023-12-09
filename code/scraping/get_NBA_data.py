@@ -30,13 +30,13 @@ def get_soup_from_page(season, game_type, target_type, data_type):
 
     url3 = '#all_per_game_team-opponent' if target_type == 'team' else ''
 
-    url = "https://www.basketball-reference.com/" + url1 + f"/NBA_{season}" + url2 + '.html' + url3
+    url = 'https://www.basketball-reference.com/' + url1 + f'/NBA_{season}' + url2 + '.html' + url3
 
     response = requests.get(url)
 
     html = response.text
 
-    soup = BeautifulSoup(html, features="lxml")
+    soup = BeautifulSoup(html, features='lxml')
 
     return soup
 
@@ -49,8 +49,8 @@ def mk_csv_dir(season, game_type, data_type):
     
     '''
 
-    BASE_DIR = "data"
-    CSV_PATH = os.path.join(BASE_DIR, f"{game_type}_{data_type}_{season}.csv")
+    BASE_DIR = 'data'
+    CSV_PATH = os.path.join(BASE_DIR, f'{game_type}_{data_type}_{season}.csv')
     os.makedirs(BASE_DIR, exist_ok=True)
 
     return CSV_PATH
@@ -72,7 +72,7 @@ def get_df_stats(season, game_type, target_type, data_type):
         table = soup.find('div', id = 'all_per_game_team-opponent').findAll('tr')
 
     elif (target_type, data_type) == ('team', 'advanced'):
-        table = soup.find('div', id = "all_advanced_team").findAll('tr')
+        table = soup.find('div', id = 'all_advanced_team').findAll('tr')
 
 
     '''Get Headers for our table'''
@@ -171,7 +171,7 @@ def get_df_stats(season, game_type, target_type, data_type):
 
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     
     '''Set a request limit to avoid issues'''
     requests_per_minute = 15
@@ -180,10 +180,10 @@ if __name__ == "__main__":
 
     '''Create the tqdm instance'''
     total_iterations = 4 * (2024 - 2015) + 4 * (2025 - 2015)
-    progress_bar = tqdm(total=total_iterations, desc="Processing")
+    progress_bar = tqdm(total=total_iterations, desc='Processing')
 
 
-    new_directory = os.path.join(os.getcwd(), "code", "scraping")
+    new_directory = os.path.join(os.getcwd(), 'code', 'scraping')
     os.chdir(new_directory)
 
     for target_type in ['player', 'team']:
