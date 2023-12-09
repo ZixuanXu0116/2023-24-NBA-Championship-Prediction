@@ -1,22 +1,21 @@
-import os
 import time
+import os
 from playwright.sync_api import sync_playwright, TimeoutError as playwrightTimeout
-from bs4 import BeautifulSoup
 from tqdm import tqdm
-
+from bs4 import BeautifulSoup
 SEASONS = list(range(2015, 2025))
 
 new_directory = os.path.join(os.getcwd(), 'code', 'scraping')
 os.chdir(new_directory)
 DATA_DIR = 'data'
-STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') 
+STANDINGS_DIR = os.path.join(DATA_DIR, 'standings')
 SCORES_DIR = os.path.join(DATA_DIR, 'scores')
-os.makedirs(STANDINGS_DIR, exist_ok = True)
-os.makedirs(SCORES_DIR, exist_ok = True)
+os.makedirs(STANDINGS_DIR, exist_ok=True)
+os.makedirs(SCORES_DIR, exist_ok=True)
 
 
-def get_html(url, selector, sleep=4, retries=7): 
-    ''' async allow the code after it to imediatelly execute. '''
+def get_html(url, selector, sleep=4, retries=7):
+    '''async allow the code after it to imediatelly execute.'''
     ''' Info:
      This function will get the html content of a page and return it as a html file
       --------------------------------------------------------------------------------
@@ -30,12 +29,12 @@ def get_html(url, selector, sleep=4, retries=7):
         html: html content of the page
         '''
     html = None
-    for i in range(1, retries+1):
+    for i in range(1, retries + 1):
         '''each try is longer by a sleep multiplication factor'''
         time.sleep(sleep * i)
 
         try:
-            with sync_playwright() as p: 
+            with sync_playwright() as p:
                 browser = p.chromium.launch()
                 page = browser.new_page()
                 page.goto(url)
@@ -43,37 +42,35 @@ def get_html(url, selector, sleep=4, retries=7):
 
         except playwrightTimeout:
             print(f'TimeoutError on the url {url}')
-            continue 
+            continue
 
-        else: 
+        else:
             break
 
     if html != None:
         return html
-    
+
     else:
         print('Fail')
 
+
 def scrapy_season(season):
-    ''' Info:
-        This function will scrape the standings of a season and save them in a html file
+    '''Info:
+    This function will scrape the standings of a season and save them in a html file
+    --------------------------------------------------------------------------------
+    Input:
+        season: season to be scraped
         --------------------------------------------------------------------------------
-        Input:
-            season: season to be scraped
-            --------------------------------------------------------------------------------
-            Output:
-            None
-            '''
-    url  = f'https://www.basketball-reference.com/leagues/NBA_{season}_games.html'
-    
-    
+        Output:
+        None
+    '''
+    url = f'https://www.basketball-reference.com/leagues/NBA_{season}_games.html'
+
     html = get_html(url=url, selector='#content .filter')
     if html == None:
         print('still nothing on the first attempt to get the whole page content')
     else:
         pass
-
-        
 
     soup = BeautifulSoup(html, 'html.parser')
     links = soup.find_all('a')
@@ -96,10 +93,11 @@ def scrapy_season(season):
         else:
             '''print(f'attempt to get the {url} content succeed!')'''
             pass
-        
-        with open (save_path, 'w+') as f:
-            f.write(html) 
-    
+
+        with open(save_path, 'w+') as f:
+            f.write(html)
+
+
 '''scraping every season'''
 for season in tqdm(SEASONS, desc='Scraping Seasons', unit='season'):
     scrapy_season(season)
