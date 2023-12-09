@@ -1,7 +1,7 @@
 import pandas as pd
 
+
 def generate_new_df_part(original_df):
-    
     new_rows = []
 
     for index, row in original_df.iterrows():
