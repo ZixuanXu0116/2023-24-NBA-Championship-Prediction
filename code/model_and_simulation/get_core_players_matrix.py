@@ -32,7 +32,7 @@ def get_feature_matrix(schedule_df, df):
 
     return result_df
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     season = 2023
 
