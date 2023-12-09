@@ -1,10 +1,10 @@
+import os
+import warnings
+import re
+from tqdm import tqdm
 import pandas as pd
 from database import engine
 from bs4 import BeautifulSoup
-import os
-import warnings
-from tqdm import tqdm
-import re
 from datetime import date
 warnings.filterwarnings('ignore')
 
