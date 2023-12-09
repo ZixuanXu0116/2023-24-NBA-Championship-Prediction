@@ -207,27 +207,27 @@ python3 code/scraping/get_gamely_html.py
 python3 code/scraping/load_game_data_to_database.py
 ```
 
-Then you will load the game-by-game data into the database, the table name will be 'nba_game_by_game_regular_data'. This time, no worries about the duplicate of data because we use if_exists='replace' for load_game_data_to_database.py.
+* Then you will load the game-by-game data into the database, the table name will be 'nba_game_by_game_regular_data'. This time, no worries about the duplicate of data because we use if_exists='replace' for load_game_data_to_database.py.
 
 ### Note: Within the game data, there are some erroneous entries due to mistakes by official website record keepers or the scraping process. While some of these errors can be removed using code, others require a more tricky process, involving both code-based filtering and manual review. This is the most efficient way to fix this problem. For details and exact codes, please check code/scraping/check_database_problems.py. Again, you need to do this error-checking stuff only if you want to build your own database. If you want to use our database, please directly use the table named nba_game_by_game_regular_data in the database for the following operations without running the load_game_data_to_database.py and check_database_problems.py.
 
 
 ***Manipulating the Data:***
 
-Now, after getting all the required tables to construct features for ML prediction, we begin to construct features. First, let's get the play_ability_cluster, you need to join nba_regular/playoffs_normal_player_data with nba_regular/playoffs_advanced_player_data to get a combined table before running the Python code. The SQL code for joining two pairs of two tables is provided in the get_player_cluster.py
+* Now, after getting all the required tables to construct features for ML prediction, we begin to construct features. First, let's get the play_ability_cluster, you need to join nba_regular/playoffs_normal_player_data with nba_regular/playoffs_advanced_player_data to get a combined table before running the Python code. The SQL code for joining two pairs of two tables is provided in the get_player_cluster.py
 
 ```python
 python3 code/manipulation/get_player_cluster.py
 ```
-The data is saved into the database in the tables named players_ability_cluster_playoffs/regular_data.
+***The output is saved into the database in the tables named players_ability_cluster_playoffs/regular_data.***
 
-Then, we run the following code to get the predicted play_ability_cluster for playoffs and the regular seasons:
+* Then, we run the following code to get the predicted play_ability_cluster for playoffs and the regular seasons:
 
 ```python
 python3 code/manipulation/get_predicted_player_matrix_regular.py
 python3 code/manipulation/get_predicted_player_matrix_playoffs.py
 ```
-The data is saved into the database in the tables named regular/playoffs_predicted_player_matrix_data.
+***The output is saved into the database in the tables named regular/playoffs_predicted_player_matrix_data.***
 
 Then, run the following code to get the game schedule for each season:
 
@@ -235,7 +235,59 @@ Then, run the following code to get the game schedule for each season:
 python3 code/manipulation/get_season_schedule.py
 ```
 
-The data is saved into the database in the tables named regular_game_schedule_data.
+***The output is saved into the database in the tables named regular_game_schedule_data.***
+
+***Build Up the Model and Simulation***
+
+* Get the real/predicted_total_dictionary_like_matrix first:
+
+```python
+python3 code/model_and_simulation/get_real_total_dictionary_like_matrix.py
+python3 code/model_and_simulation/get_predicted_total_dictionary_like_matrix.py
+```
+For these two codes above, if IndexError: `list index out of range` happened, just rerun the code 1 or 2 times.
+
+You will get two CSV files in the code/model_and_simulation folder, which are used to keep data temporarily for the next step: 
+
+```python
+python3 code/model_and_simulation/get_real_total_feature_matrix.py
+python3 code/model_and_simulation/get_predicted_total_feature_matrix.py
+
+```
+
+***The output is saved into the database in the tables named real/predicted_total_feature_matrix_data.***
+
+
+* Then, run the following code to get the core player_ability_matrix for each team:
+
+```python
+python3 code/model_and_simulation/get_core_players_matrix.py
+```
+***The output is saved into the database in the tables named core_players_matrix_2023_regular.***
+
+* Now, we can simulate the whole 2022-23 season by running the following codes:
+
+```python
+python3 code/model_and_simulation/simulate_regular_seasons.py
+```
+***The playoffs team list will be saved into tables named predicted_2022_23_west/east_playoffs_teams***
+
+* Then simulate the playoffs:
+
+```python
+python3 code/model_and_simulation/simulate_playoffs.py
+```
+
+## You will witness the birth of the Champion in the terminal!
+
+***If you have any problems regarding the whole process, please use pulling requests or issues in this repo, or contact me through email: `zixuanxu@utexas.edu`.***
+
+
+
+
+
+
+
 
 
 
