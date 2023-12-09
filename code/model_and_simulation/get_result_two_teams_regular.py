@@ -18,7 +18,7 @@ def get_single_game_result(team1, team2, model):
 
     all_predictions = np.zeros((df.shape[0], num_iterations))
 
-    for i in tqdm(range(num_iterations), desc="Running Iterations", unit="iteration"):
+    for i in tqdm(range(num_iterations), desc='Running Iterations', unit='iteration'):
         y_pred_iteration = model.predict(df)
         all_predictions[:, i] = y_pred_iteration
 
