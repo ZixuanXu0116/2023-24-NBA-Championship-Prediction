@@ -270,6 +270,8 @@ python3 code/model_and_simulation/get_core_players_matrix.py
 ```python
 python3 code/model_and_simulation/simulate_regular_seasons.py
 ```
+* By changing the parameter num_iterations, you can control how many times you wanna simulate for one single game, default = 999, you can set it to a small number to save time.
+
 ***The playoffs team list will be saved into tables named predicted_2022_23_west/east_playoffs_teams***
 
 * Then simulate the playoffs:
