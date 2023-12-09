@@ -1,10 +1,10 @@
+import time
+import os
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from database import engine
 from tqdm import tqdm
-import time
-import os
 
 
 def get_soup_from_page(season, game_type, target_type, data_type):
