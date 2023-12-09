@@ -1,9 +1,7 @@
 import os
 import pandas as pd
-import numpy as np
 import ast
 from database import engine
-from ast import literal_eval
 from pandas import json_normalize
 
 new_directory = os.path.join(os.getcwd(), "code", "model_and_simulation")
