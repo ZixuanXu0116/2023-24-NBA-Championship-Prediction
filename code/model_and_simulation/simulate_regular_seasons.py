@@ -8,6 +8,7 @@ from generate_playin_1st_round_result import generate_new_df_part
 from generate_feature_matrix import get_feature_matrix
 from get_result_two_teams_regular import get_single_game_result
 import warnings
+
 warnings.filterwarnings('ignore')
 
 query_train = f'SELECT * FROM real_total_feature_matrix_data'
@@ -47,7 +48,7 @@ for i in tqdm(range(num_iterations), desc='Running Iterations', unit='iteration'
 '''Make the final prediction based on the majority'''
 
 final_predictions = np.mean(all_predictions, axis=1) > 0.5
-final_predictions = final_predictions.astype(int) 
+final_predictions = final_predictions.astype(int)
 print(final_predictions)
 y_pred = final_predictions
 
@@ -66,11 +67,41 @@ Define Eastern Conference and Western Conference teams
 
 '''
 
-eastern_teams = ['ATL', 'BOS', 'BRK', 'CHO', 'CHI', 'CLE', 'DET', 'IND', 
-                 'MIA', 'MIL', 'NYK', 'ORL', 'PHI', 'TOR', 'WAS']
+eastern_teams = [
+    'ATL',
+    'BOS',
+    'BRK',
+    'CHO',
+    'CHI',
+    'CLE',
+    'DET',
+    'IND',
+    'MIA',
+    'MIL',
+    'NYK',
+    'ORL',
+    'PHI',
+    'TOR',
+    'WAS',
+]
 
-western_teams = ['DAL', 'DEN', 'GSW', 'HOU', 'LAC', 'LAL', 'MEM', 'MIN', 
-                'NOP', 'OKC', 'PHO', 'POR', 'SAC', 'SAS', 'UTA']
+western_teams = [
+    'DAL',
+    'DEN',
+    'GSW',
+    'HOU',
+    'LAC',
+    'LAL',
+    'MEM',
+    'MIN',
+    'NOP',
+    'OKC',
+    'PHO',
+    'POR',
+    'SAC',
+    'SAS',
+    'UTA',
+]
 
 eastern_wins = {}
 eastern_losses = {}
@@ -105,24 +136,33 @@ Convert the results to DataFrames for each conference
 '''
 
 
+eastern_results_df = pd.DataFrame(
+    {
+        'Team': eastern_teams,
+        'Wins': [eastern_wins.get(team, 0) for team in eastern_teams],
+        'Losses': [eastern_losses.get(team, 0) for team in eastern_teams],
+    }
+)
 
-
-eastern_results_df = pd.DataFrame({'Team': eastern_teams,
-                                   'Wins': [eastern_wins.get(team, 0) for team in eastern_teams],
-                                   'Losses': [eastern_losses.get(team, 0) for team in eastern_teams]})
-
-western_results_df = pd.DataFrame({'Team': western_teams,
-                                   'Wins': [western_wins.get(team, 0) for team in western_teams],
-                                   'Losses': [western_losses.get(team, 0) for team in western_teams]})
-
+western_results_df = pd.DataFrame(
+    {
+        'Team': western_teams,
+        'Wins': [western_wins.get(team, 0) for team in western_teams],
+        'Losses': [western_losses.get(team, 0) for team in western_teams],
+    }
+)
 
 
 '''
 Add a new column for ranking within each conference
 '''
 
-eastern_results_df['Rank'] = eastern_results_df['Wins'].rank(ascending=False, method='min').astype(int)
-western_results_df['Rank'] = western_results_df['Wins'].rank(ascending=False, method='min').astype(int)
+eastern_results_df['Rank'] = (
+    eastern_results_df['Wins'].rank(ascending=False, method='min').astype(int)
+)
+western_results_df['Rank'] = (
+    western_results_df['Wins'].rank(ascending=False, method='min').astype(int)
+)
 
 '''
 Sort the DataFrames based on the number of wins
@@ -154,16 +194,30 @@ print('\nWestern Conference Play-in Teams:')
 print(western_playin_teams)
 
 
-team1_data = {'team': [western_playin_teams.iloc[1, :]['Team'], western_playin_teams.iloc[3, :]['Team'],
-                       eastern_playin_teams.iloc[1, :]['Team'], eastern_playin_teams.iloc[3, :]['Team']]}
+team1_data = {
+    'team': [
+        western_playin_teams.iloc[1, :]['Team'],
+        western_playin_teams.iloc[3, :]['Team'],
+        eastern_playin_teams.iloc[1, :]['Team'],
+        eastern_playin_teams.iloc[3, :]['Team'],
+    ]
+}
 
-team2_data = {'team': [western_playin_teams.iloc[0, :]['Team'], western_playin_teams.iloc[2, :]['Team'],
-                       eastern_playin_teams.iloc[0, :]['Team'], eastern_playin_teams.iloc[2, :]['Team']]}
+team2_data = {
+    'team': [
+        western_playin_teams.iloc[0, :]['Team'],
+        western_playin_teams.iloc[2, :]['Team'],
+        eastern_playin_teams.iloc[0, :]['Team'],
+        eastern_playin_teams.iloc[2, :]['Team'],
+    ]
+}
 
 query = f'SELECT * FROM regular_predicted_player_matrix_data WHERE season = 2023'
 matrix_df = pd.read_sql_query(query, engine)
 
-playin_round_one = pd.DataFrame({'team1': team1_data['team'], 'team2': team2_data['team']})
+playin_round_one = pd.DataFrame(
+    {'team1': team1_data['team'], 'team2': team2_data['team']}
+)
 
 playin_round_one_matrix = get_feature_matrix(playin_round_one, matrix_df)
 
@@ -212,14 +266,22 @@ top_wins_east = list(eastern_results_df.iloc[0:6, :]['Wins'].tolist())
 west_seven = round_one_result.iloc[0]['team'][-3:]
 east_seven = round_one_result.iloc[4]['team'][-3:]
 
-seven_wins_west = western_results_df[western_results_df['Team'] == west_seven]['Wins'].iloc[0]
-seven_wins_east = eastern_results_df[eastern_results_df['Team'] == east_seven]['Wins'].iloc[0]
+seven_wins_west = western_results_df[western_results_df['Team'] == west_seven][
+    'Wins'
+].iloc[0]
+seven_wins_east = eastern_results_df[eastern_results_df['Team'] == east_seven][
+    'Wins'
+].iloc[0]
 
 west_eight = eight_list[0]
 east_eight = eight_list[1]
 
-eight_wins_west = western_results_df[western_results_df['Team'] == west_eight]['Wins'].iloc[0]
-eight_wins_east = eastern_results_df[eastern_results_df['Team'] == east_eight]['Wins'].iloc[0]
+eight_wins_west = western_results_df[western_results_df['Team'] == west_eight][
+    'Wins'
+].iloc[0]
+eight_wins_east = eastern_results_df[eastern_results_df['Team'] == east_eight][
+    'Wins'
+].iloc[0]
 
 top_six_west += [west_seven, west_eight]
 top_six_east += [east_seven, east_eight]
@@ -231,10 +293,20 @@ top_eight_west = top_six_west
 top_eight_east = top_six_east
 
 ranking_west_df = pd.DataFrame(top_eight_west, columns=['Rankings'])
-ranking_west_df['Wins'] = top_wins_west 
+ranking_west_df['Wins'] = top_wins_west
 ranking_east_df = pd.DataFrame(top_eight_east, columns=['Rankings'])
 ranking_east_df['Wins'] = top_wins_east
 
-ranking_east_df.to_sql('predicted_2022_23_east_playoffs_teams', con=engine, if_exists='replace', index=False)
-ranking_west_df.to_sql('predicted_2022_23_west_playoffs_teams', con=engine, if_exists='replace', index=False)
+ranking_east_df.to_sql(
+    'predicted_2022_23_east_playoffs_teams',
+    con=engine,
+    if_exists='replace',
+    index=False,
+)
+ranking_west_df.to_sql(
+    'predicted_2022_23_west_playoffs_teams',
+    con=engine,
+    if_exists='replace',
+    index=False,
+)
 print('Saved the result to the database')
