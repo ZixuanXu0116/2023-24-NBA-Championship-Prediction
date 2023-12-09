@@ -173,5 +173,6 @@ df = pd.DataFrame(game_info_list)
 
 
 '''Save the df to a temp.csv file to temporarily keep the data'''
-
+new_directory = os.path.join(os.getcwd(), "code", "model_and_simulation") 
+os.chdir(new_directory)
 df.to_csv(os.path.join(os.getcwd(), 'temp_predicted.csv'), index = False)
