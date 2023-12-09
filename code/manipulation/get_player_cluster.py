@@ -5,10 +5,11 @@ from sklearn.preprocessing import StandardScaler
 import warnings
 from database import engine
 from tqdm import tqdm
+
 warnings.filterwarnings('ignore')
 
-def pull_player_data(table_name, season):
 
+def pull_player_data(table_name, season):
     sql_query = f'SELECT * FROM {table_name} WHERE season = {season}'
 
     '''
@@ -81,9 +82,11 @@ def pull_player_data(table_name, season):
 
     return df
 
-'''Credit for below logic for clustering belongs to Zixuan'''
-def sort_clusters(cluster_labels, num_clusters, X, weights):
 
+'''Credit for below logic for clustering belongs to Zixuan'''
+
+
+def sort_clusters(cluster_labels, num_clusters, X, weights):
     cluster_averages = {}
     for i in range(num_clusters):
         cluster_attributes = X[X[cluster_labels] == i].iloc[:, :-1]
@@ -91,7 +94,7 @@ def sort_clusters(cluster_labels, num_clusters, X, weights):
         weight_array = np.array(weights)
         result = np.mean(np.dot(df_array, weight_array))
         cluster_averages[i] = result
-    
+
     sorted_clusters = sorted(cluster_averages, key=cluster_averages.get)
     new_labels = {sorted_clusters[i]: i for i in range(num_clusters)}
     adjusted_labels = np.vectorize(lambda x: new_labels[x])(X[cluster_labels])
@@ -100,28 +103,47 @@ def sort_clusters(cluster_labels, num_clusters, X, weights):
 
 
 def get_player_type_and_level(player_data, year, *feature_lists):
-    
     df = player_data
-    
+
     position_mapping = {'PG': 1, 'SG': 2, 'SF': 3, 'PF': 4, 'C': 5}
     df['Pos'] = df['Pos'].map(position_mapping)
 
     scaler = StandardScaler()
     num_clusters = 6
 
-    result_df = pd.DataFrame({'Year': year, 'Player': df['Player'], 'Age': df['Age'], 'Pos': df['Pos'], 'Tm': df['Tm'],
-                              'MP': df['MP'], 'G': df['G']})
+    result_df = pd.DataFrame(
+        {
+            'Year': year,
+            'Player': df['Player'],
+            'Age': df['Age'],
+            'Pos': df['Pos'],
+            'Tm': df['Tm'],
+            'MP': df['MP'],
+            'G': df['G'],
+        }
+    )
 
-    for abl, cluster_col, weights in zip(feature_lists, ['shooting', 'peri_def', 'playmaker', 
-                                                'pro_rim', 'efficiency', 'influence', 
-                                                'scoring'],
-                                                [[1, 5, 10, 2, 0.1], 
-                                                [1, 0.75, 1, 1, 0.5, 0.2], 
-                                                [1, 0.3, 0.25, 0.5], 
-                                                [1, 1, 1, 1, 0.3, 0.3, 0.3], 
-                                                [1, 1, 0.05], 
-                                                [1, 1, 1, 1, 1, 0.1], 
-                                                [1, 2, 2, 3, 1] ]):
+    for abl, cluster_col, weights in zip(
+        feature_lists,
+        [
+            'shooting',
+            'peri_def',
+            'playmaker',
+            'pro_rim',
+            'efficiency',
+            'influence',
+            'scoring',
+        ],
+        [
+            [1, 5, 10, 2, 0.1],
+            [1, 0.75, 1, 1, 0.5, 0.2],
+            [1, 0.3, 0.25, 0.5],
+            [1, 1, 1, 1, 0.3, 0.3, 0.3],
+            [1, 1, 0.05],
+            [1, 1, 1, 1, 1, 0.1],
+            [1, 2, 2, 3, 1],
+        ],
+    ):
         X = df[abl]
         X_scaled = scaler.fit_transform(X)
         kmeans = KMeans(n_clusters=num_clusters, random_state=42)
@@ -131,12 +153,10 @@ def get_player_type_and_level(player_data, year, *feature_lists):
         adjusted_labels = sort_clusters(cluster_col, num_clusters, X, weights)
         result_df[cluster_col] = adjusted_labels
 
-
     return result_df
 
 
 if __name__ == '__main__':
-
     '''Defining cluster characteristics'''
     shooting_abl = ['3P', '3PAr', '3P%', 'FT%', 'USG%']
     peri_def_abl = ['STL', 'STL%', 'DBPM', 'DWS', 'BLK', 'BLK%']
@@ -151,14 +171,28 @@ if __name__ == '__main__':
     print('Starting Process Regular Season data')
     for year in tqdm(range(2015, 2025), desc='Processing years'):
         player_data = pull_player_data('nba_combined_regular_normal_player_data', year)
-        result_df = get_player_type_and_level(player_data, year, shooting_abl, 
-                                            peri_def_abl, playmkr_abl, pro_rim_abl, 
-                                            effi_abl, influ_abl, scoring_abl)
-        all_clustered_players_regular = pd.concat([all_clustered_players_regular, result_df]).fillna(0)
+        result_df = get_player_type_and_level(
+            player_data,
+            year,
+            shooting_abl,
+            peri_def_abl,
+            playmkr_abl,
+            pro_rim_abl,
+            effi_abl,
+            influ_abl,
+            scoring_abl,
+        )
+        all_clustered_players_regular = pd.concat(
+            [all_clustered_players_regular, result_df]
+        ).fillna(0)
 
     '''Pushing to database'''
-    all_clustered_players_regular.to_sql('players_ability_cluster_regular_data', \
-                        con=engine, if_exists='replace', index=False)
+    all_clustered_players_regular.to_sql(
+        'players_ability_cluster_regular_data',
+        con=engine,
+        if_exists='replace',
+        index=False,
+    )
 
     '''Conducting the same operations for playoffs'''
 
@@ -166,10 +200,24 @@ if __name__ == '__main__':
     print('Starting Process Playoffs data')
     for year in tqdm(range(2015, 2024), desc='Processing years'):
         player_data = pull_player_data('nba_combined_playoffs_normal_player_data', year)
-        result_df = get_player_type_and_level(player_data, year, shooting_abl, 
-                                            peri_def_abl, playmkr_abl, pro_rim_abl, 
-                                            effi_abl, influ_abl, scoring_abl)
-        all_clustered_players_playoffs = pd.concat([all_clustered_players_playoffs, result_df]).fillna(0)
+        result_df = get_player_type_and_level(
+            player_data,
+            year,
+            shooting_abl,
+            peri_def_abl,
+            playmkr_abl,
+            pro_rim_abl,
+            effi_abl,
+            influ_abl,
+            scoring_abl,
+        )
+        all_clustered_players_playoffs = pd.concat(
+            [all_clustered_players_playoffs, result_df]
+        ).fillna(0)
 
-    all_clustered_players_playoffs.to_sql('players_ability_cluster_playoffs_data', \
-                        con=engine, if_exists='replace', index=False)
+    all_clustered_players_playoffs.to_sql(
+        'players_ability_cluster_playoffs_data',
+        con=engine,
+        if_exists='replace',
+        index=False,
+    )
