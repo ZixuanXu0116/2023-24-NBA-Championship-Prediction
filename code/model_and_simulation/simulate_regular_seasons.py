@@ -39,7 +39,7 @@ all_predictions = np.zeros((X_test.shape[0], num_iterations))
 
 '''Run the model multiple times for each sample'''
 
-for i in tqdm(range(num_iterations), desc="Running Iterations", unit="iteration"):
+for i in tqdm(range(num_iterations), desc='Running Iterations', unit='iteration'):
     model.fit(X_train, y_train)
     y_pred_iteration = model.predict(X_test)
     all_predictions[:, i] = y_pred_iteration
@@ -133,10 +133,10 @@ eastern_results_df = eastern_results_df.sort_values(by='Wins', ascending=False)
 western_results_df = western_results_df.sort_values(by='Wins', ascending=False)
 
 
-print("Eastern Conference Results:")
+print('Eastern Conference Results:')
 print(eastern_results_df)
 print('-----------------------------------------------------------')
-print("\nWestern Conference Results:")
+print('\nWestern Conference Results:')
 print(western_results_df)
 
 
@@ -147,10 +147,10 @@ eastern_playin_teams = eastern_results_df.iloc[playin_range].copy()
 western_playin_teams = western_results_df.iloc[playin_range].copy()
 print('-----------------------------------------------------------')
 # Display the teams that would be in the play-in games
-print("Eastern Conference Play-in Teams:")
+print('Eastern Conference Play-in Teams:')
 print(eastern_playin_teams)
 print('-----------------------------------------------------------')
-print("\nWestern Conference Play-in Teams:")
+print('\nWestern Conference Play-in Teams:')
 print(western_playin_teams)
 
 
