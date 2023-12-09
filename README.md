@@ -212,6 +212,21 @@ Then you will load the game-by-game data into the database, the table name will 
 ### Note: Within the game data, there are some erroneous entries due to mistakes by official website record keepers or the scraping process. While some of these errors can be removed using code, others require a more tricky process, involving both code-based filtering and manual review. This is the most efficient way to fix this problem. For details and exact codes, please check code/scraping/check_database_problems.py. Again, you need to do this error-checking stuff only if you want to build your own database. If you want to use our database, please directly use the table named nba_game_by_game_regular_data in the database for the following operations without running the load_game_data_to_database.py and check_database_problems.py.
 
 
+***Manipulating the Data:***
+
+Now, after getting all the required tables to construct features for ML prediction, we begin to construct features. First, let's get the play_ability_cluster, you need to join nba_regular/playoffs_normal_player_data with nba_regular/playoffs_advanced_player_data to get a combined table before running the Python code. The SQL code for joining two pairs of two tables is provided in the get_player_cluster.py
+
+```python
+python3 code/manipulation/get_player_cluster.py
+```
+
+Then, we run the following code to get the predicted play_ability_cluster for playoffs and the regular seasons.
+
+```python
+python3 code/manipulation/get_predicted_player_matrix_regular.py
+python3 code/manipulation/get_predicted_player_matrix_playoffs.py
+```
+
 
 
 
