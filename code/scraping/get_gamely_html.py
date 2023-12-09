@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright, TimeoutError as playwrightTimeo
 
 
 
-new_directory = os.path.join(os.getcwd(), "code", "scraping")
+new_directory = os.path.join(os.getcwd(), 'code', 'scraping')
 os.chdir(new_directory)
 DATA_DIR = 'data'
 STANDINGS_DIR = os.path.join(DATA_DIR, 'standings') 
@@ -39,19 +39,19 @@ def compress(file_names, files_path, output_path):
     compression = zipfile.ZIP_DEFLATED
 
     '''create the zip file first parameter path/name, second mode'''
-    zf = zipfile.ZipFile(os.path.join(output_path, 'compressed_games.zip'), mode="w")
+    zf = zipfile.ZipFile(os.path.join(output_path, 'compressed_games.zip'), mode='w')
     try:
         for file_name in tqdm(file_names):
             zf.write(os.path.join(files_path, file_name), file_name, compress_type=compression)
 
     except FileNotFoundError:
-        print(f"An error occurred, file {os.path.join(files_path, file_name)} not found") 
+        print(f'An error occurred, file {os.path.join(files_path, file_name)} not found') 
     finally:
         zf.close()
 
 
 def get_html(url, selector, sleep=4, retries=6): 
-    """ 
+    ''' 
         ----------------------
          Input:
             url: url to get the html from (type: str)
@@ -60,7 +60,7 @@ def get_html(url, selector, sleep=4, retries=6):
                retries: number of retries (type: int)
                 ----------------------------------------
                  Output:
-                    html: html page of the url (type: str) """
+                    html: html page of the url (type: str) '''
 
     html=None
     for i in range(1, retries+1):
@@ -88,7 +88,7 @@ def get_html(url, selector, sleep=4, retries=6):
 
 
 def scrape_boxscores(standing_file, season_year):
-    """
+    '''
           Input:
             standing_file: path to the standings file (type: str)
             Example: 'data/standings/NBA_2022_games-june.html'
@@ -96,7 +96,7 @@ def scrape_boxscores(standing_file, season_year):
         ----------------------------------------
           Output:
             box_scores: list of box scores (type: list)
-    """
+    '''
     
     '''here we grab a month and go through all the month box scores'''
     with open(standing_file,'r') as f:
@@ -122,7 +122,7 @@ def scrape_boxscores(standing_file, season_year):
         else:
             pass
             
-        with open (save_path, 'w+', encoding="utf-8") as f:
+        with open (save_path, 'w+', encoding='utf-8') as f:
             f.write(html)
 
 
