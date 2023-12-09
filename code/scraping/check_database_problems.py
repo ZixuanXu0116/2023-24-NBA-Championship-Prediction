@@ -47,9 +47,13 @@ We can use these indices to make separation for different teams and different ga
 
 '''
 team_start_indices = demo_df.index[(demo_df['Tm'] != demo_df['Tm'].shift())].tolist()
-team_start_indices = demo_df.index[(demo_df['date'] != demo_df['date'].shift())].tolist()
+team_start_indices = demo_df.index[
+    (demo_df['date'] != demo_df['date'].shift())
+].tolist()
 team_start_indices = demo_df.index[(demo_df['Win'] != demo_df['Win'].shift())].tolist()
-team_start_indices = demo_df.index[(demo_df['Home'] != demo_df['Home'].shift())].tolist()
+team_start_indices = demo_df.index[
+    (demo_df['Home'] != demo_df['Home'].shift())
+].tolist()
 
 '''Delete the first indices, because it's no need to keep it.'''
 
@@ -70,20 +74,17 @@ print(len(team_start_indices))
 print(team_start_indices[-1:])
 processed_games = []
 
-for i in range(0, len(team_start_indices), 2):  
+for i in range(0, len(team_start_indices), 2):
     if team_start_indices[i + 1] - team_start_indices[i] == 1:
         print(game_start_indices[i])
     date = demo_df.loc[team_start_indices[i], 'date']
     team1 = demo_df.loc[team_start_indices[i] - 1, 'Tm']
     team2 = demo_df.loc[team_start_indices[i + 1] - 1, 'Tm']
-    result = demo_df.loc[team_start_indices[i + 1] - 1 , 'Win']
+    result = demo_df.loc[team_start_indices[i + 1] - 1, 'Win']
 
-    processed_games.append({
-        'date': date,
-        'team1': team1,
-        'team2': team2,
-        'result': result
-    })
+    processed_games.append(
+        {'date': date, 'team1': team1, 'team2': team2, 'result': result}
+    )
 
 '''
 Use the output CSV file to spot check (compared with the real game data in the database) 
