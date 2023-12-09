@@ -245,7 +245,7 @@ python3 code/manipulation/get_season_schedule.py
 python3 code/model_and_simulation/get_real_total_dictionary_like_matrix.py
 python3 code/model_and_simulation/get_predicted_total_dictionary_like_matrix.py
 ```
-For these two codes above, if IndexError: `list index out of range` happened, just rerun the code 1 or 2 times.
+For these two codes above, if `IndexError: list index out of range` happened, just rerun the code 1 or 2 times.
 
 You will get two CSV files in the code/model_and_simulation folder, which are used to keep data temporarily for the next step: 
 
