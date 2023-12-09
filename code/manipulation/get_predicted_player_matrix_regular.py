@@ -19,9 +19,9 @@ def get_single_season_cluster_matrix(season):
     return df
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 
-    for season in tqdm(range(2016, 2025), desc="Processing years"):
+    for season in tqdm(range(2016, 2025), desc='Processing years'):
 
         df_last_season = get_single_season_cluster_matrix(season - 1)
         df_cur_season = get_single_season_cluster_matrix(season)
