@@ -1,11 +1,11 @@
 import os
 import warnings
 import re
+from datetime import date
 from tqdm import tqdm
 import pandas as pd
 from database import engine
 from bs4 import BeautifulSoup
-from datetime import date
 warnings.filterwarnings('ignore')
 
 new_directory = os.path.join(os.getcwd(), "code", "scraping")
