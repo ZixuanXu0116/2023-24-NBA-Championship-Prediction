@@ -219,13 +219,25 @@ Now, after getting all the required tables to construct features for ML predicti
 ```python
 python3 code/manipulation/get_player_cluster.py
 ```
+The data is saved into the database in the tables named players_ability_cluster_playoffs/regular_data.
 
-Then, we run the following code to get the predicted play_ability_cluster for playoffs and the regular seasons.
+Then, we run the following code to get the predicted play_ability_cluster for playoffs and the regular seasons:
 
 ```python
 python3 code/manipulation/get_predicted_player_matrix_regular.py
 python3 code/manipulation/get_predicted_player_matrix_playoffs.py
 ```
+The data is saved into the database in the tables named regular/playoffs_predicted_player_matrix_data.
+
+Then, run the following code to get the game schedule for each season:
+
+```python
+python3 code/manipulation/get_season_schedule.py
+```
+
+The data is saved into the database in the tables named regular_game_schedule_data.
+
+
 
 
 
