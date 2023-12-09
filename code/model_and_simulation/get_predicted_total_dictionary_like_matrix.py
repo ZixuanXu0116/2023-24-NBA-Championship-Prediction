@@ -2,9 +2,6 @@ import pandas as pd
 import os
 import warnings
 from database import engine
-import ast
-from ast import literal_eval
-from pandas import json_normalize
 from tqdm import tqdm
 warnings.filterwarnings('ignore')
 
