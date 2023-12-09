@@ -8,6 +8,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 import os
 
+new_directory = os.path.join(os.getcwd(), "code", "model_and_simulation")
+os.chdir(new_directory)
 df = pd.read_csv(os.path.join(os.getcwd(), 'temp_predicted.csv'))
 
 y = df['result']
