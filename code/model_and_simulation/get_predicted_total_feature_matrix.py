@@ -1,12 +1,8 @@
+import os
 import pandas as pd
-import numpy as np
 import ast
 from database import engine
-from ast import literal_eval
 from pandas import json_normalize
-from sklearn.metrics import accuracy_score
-from sklearn.ensemble import RandomForestClassifier
-import os
 
 new_directory = os.path.join(os.getcwd(), "code", "model_and_simulation")
 os.chdir(new_directory)
