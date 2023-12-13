@@ -64,7 +64,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 ## C. Result & Model Evaluation
 
- Here are the predicted vs actual results for the 2022-2023 playoffs.  For this particular simulation, we were able to accurately predict nine out of the sixteen total playoff teams.
+Here is an example dashboard of predicted results for the 2022-2023 playoffs.
 
 ### Predicted Results
 
