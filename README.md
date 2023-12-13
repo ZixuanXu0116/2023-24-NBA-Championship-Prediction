@@ -288,7 +288,7 @@ streamlit run code/model_and_simulation/streamlit_app.py
 
 * Click 'Open the Browser' in the pop-up window after running the command above, wait for seconds and you will go to our dashboard webpage. Change the num_iterations to an odd positive number you want and click 'Run Simulation'. After you see the results of the regular season, you can then click 'Simulate Playoffs' at the bottom of this page. After minutes of waiting (depending on your num_iterations), you will get the score of each playoffs series and,
 
-## You will witness the birth of the Champion in the terminal!
+## You will witness the birth of the Champion!
 
 ***If you have any problems regarding the whole process, please use pulling requests or issues in this repo, or contact me through email: `zixuanxu@utexas.edu`.***
 
