@@ -66,7 +66,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 Here is an example dashboard of predicted results for the 2022-2023 playoffs with an accuracy of 58.91% for predicting each game!
 
-![Dashboard](visualizations/dashboard.gif)
+![Dashboard](visualizations/dash.gif)
 
 
 ## D. Limitations
