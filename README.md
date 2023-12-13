@@ -64,24 +64,9 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 ## C. Result & Model Evaluation
 
-Here is an example dashboard of predicted results for the 2022-2023 playoffs.
+Here is an example dashboard of predicted results for the 2022-2023 playoffs with an accuracy of 58.91% for predicting each game!
 
-### Predicted Results
-
-<img src="visualizations/predicted_playoffs_bracket_tree_plot.png" width="190%">
-
-### Actual Results
-
-<img src="visualizations/Updated2-playoffs-actual.drawio.png" width="90%">
-
-
-### Model Evaluation
-
-
-
-* For the model evaluation, here is our report for one simulation process conducted on Dec 5th:
-
-<img src="visualizations/evaluation_report.png" width="120%">
+![Dashboard](visualizations/dashboard.gif)
 
 
 ## D. Limitations
