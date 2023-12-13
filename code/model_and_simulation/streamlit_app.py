@@ -150,9 +150,9 @@ def display_matchups(series_scores, title):
     """, unsafe_allow_html=True)
 
     # Use the custom CSS classes
-    st.markdown(f'<p style="color:blue; font-size: 35px; font-weight: bold;"{title}</p>', unsafe_allow_html=True)
+    st.markdown(f'<p class="big-font">{title}</p>', unsafe_allow_html=True)
     for score in series_scores:
-        st.markdown(f'<p style="color:blue; font-size: 25px;"{score}</p>', unsafe_allow_html=True)
+        st.markdown(f'<p class="text-font">{score}</p>', unsafe_allow_html=True)
 
 # -------------------------------------------------------------------------------------------------------------
 # Codes for simulating playoffs, the same one as simulate_playoffs
