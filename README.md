@@ -66,7 +66,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 Here is an example dashboard of predicted results (it's a GIF) for the 2023-24 playoffs with an accuracy of 55.93% for predicting each game! The Predicted Champion is LAC! 
 
-![Dashboard](visualizations/dash.gif)
+![Dashboard](visualizations/dash_2024.gif)
 
 
 ## D. Limitations
@@ -107,7 +107,7 @@ This zip provides the outputs for get_gamely_html (without running codes for ove
 
 ## G. Reproducing Results
 
-### Since we haven't retrieved the schedule of the 2023-24 season, we tested our model on the 2022-23 season following the steps below, will update you to get the 2023-24 results soon! 
+### Our current model is not the best, we will continue modifying it, but anyway, the process is completed. All the things left are to enhance the model's performance. 
 
 ***Setup:***
 * Create a Google Cloud Platform (GCP) account and set up a project.
