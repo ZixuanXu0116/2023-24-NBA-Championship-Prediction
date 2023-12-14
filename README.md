@@ -221,6 +221,8 @@ python3 code/manipulation/get_season_schedule.py
 python3 code/scraping/get_game_schedule.py
 ```
 
+For the 'result' column for season 2024 are all 0s, they are not the real result, we will predict the result for 2024
+
 ***The output is saved into the database in the tables named regular_game_schedule_data.***
 
 ***Build Up the Model and Simulation***
