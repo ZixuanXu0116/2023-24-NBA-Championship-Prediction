@@ -50,14 +50,6 @@ st.markdown(
     <div class="overlayBg"></div>
 """, unsafe_allow_html=True)
 
-# Function to run the predictions and simulations
-
-def run_simulation(season, num_iterations):
-    y_pred, y_test, schedule_df, model = get_predictions(season, num_iterations)
-    schedule_df['result_pred'] = y_pred
-    eastern_results_df, western_results_df, accuracy, report = simulate_seasons(schedule_df, eastern_teams, western_teams, y_test, y_pred)
-    return eastern_results_df, western_results_df, accuracy, report
-
 st.markdown(
     """
     <style>
@@ -72,14 +64,16 @@ st.markdown(
 # Display the labels with a bigger font
 st.markdown('<p class="big-font">Enter the Season Year</p>', unsafe_allow_html=True)
 
-season = st.number_input(":orange[Year Range we support: 2021-2023]", min_value=2021, max_value = 2023, value=2023)
+season = st.number_input(":orange[Year Range we support: 2022-2024]", min_value=2022, max_value = 2024, value=2024)
 
 st.markdown('<p class="big-font">Enter Number of Iterations for Simulation</p>', unsafe_allow_html=True)
 num_iterations = st.number_input(":orange[Please input a positive odd integer]", min_value=1, value=3)
 
 if st.button("Run Simulation"):
     with st.spinner("Running the simulation..."):
-        eastern_results_df, western_results_df, accuracy, report = run_simulation(season, num_iterations)
+        y_pred, y_val_pred, y_val_test, schedule_df, model = get_predictions(season, num_iterations)
+        schedule_df['result_pred'] = y_pred
+        eastern_results_df, western_results_df, accuracy, report = simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_val_pred)
         formatted_accuracy = "{:.2%}".format(accuracy)
         report_df = pd.DataFrame(report).transpose()
     st.header(":violet[Model Performance]")
@@ -125,7 +119,7 @@ if st.button("Run Simulation"):
     st.subheader(":violet[Teams that Make the Playoffs After the Play-in Games]")
     col3, col4 = st.columns(2)
 
-    ranking_east_df, ranking_west_df = get_playoff_teams(eastern_results_df, western_results_df, season = 2023)
+    ranking_east_df, ranking_west_df = get_playoff_teams(eastern_results_df, western_results_df, season = 2024)
 
     with col3:
         st.subheader(":violet[East Playoff Teams]")
@@ -197,7 +191,7 @@ def simulate_series(matchups, season, num_iterations):
         for game_number in range(1, 8):
             if game_number in [1, 2, 5, 7]:
                 home_team, away_team = team2, team1
-                result = get_single_game_result(home_team, away_team, X_train, y_train, num_iterations)
+                result = get_single_game_result(season, home_team, away_team, X_train, y_train, num_iterations)
                 if result == 1:
                     team2_wins += 1
                 else:
@@ -205,13 +199,13 @@ def simulate_series(matchups, season, num_iterations):
             else:
                 home_team, away_team = team1, team2
 
-                result = get_single_game_result(home_team, away_team, X_train, y_train, num_iterations)
+                result = get_single_game_result(season, home_team, away_team, X_train, y_train, num_iterations)
                 if result == 1:
                     team2_wins += 1
                 else:
                     team1_wins += 1
             if team1_wins == 4 or team2_wins == 4:
-                print(f'Finish one Simulation')
+                print(f'Finish one part of simulation')
                 break
 
  
