@@ -70,7 +70,7 @@ def get_feature_matrix(schedule_df, df, season):
 
 if __name__ == '__main__':
 
-    for season in tqdm(range(2021, 2024), desc='Running Iterations', unit='season'):
+    for season in tqdm(range(2021, 2025), desc='Running Iterations', unit='season'):
 
         query = f'SELECT * FROM regular_game_schedule_data WHERE season = {season}'
         schedule_df = pd.read_sql_query(query, engine)
