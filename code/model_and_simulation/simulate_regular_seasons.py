@@ -14,20 +14,20 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def simulate_seasons(schedule_df, eastern_teams, western_teams, y_test, y_pred):
+def simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_val_pred):
 
     eastern_wins = {}
     eastern_losses = {}
     western_wins = {}
     western_losses = {}
 
-    accuracy = accuracy_score(y_test, y_pred)
-    report = classification_report(y_test, y_pred)
+    accuracy = accuracy_score(y_val_test, y_val_pred)
+    report = classification_report(y_val_test, y_val_pred)
 
     print('Accuracy:', accuracy)
     print('Classification Report:\n', report)
 
-    report = classification_report(y_test, y_pred, output_dict=True)
+    report = classification_report(y_val_test, y_val_pred, output_dict=True)
 
     for _, row in schedule_df.iterrows():
         team1 = row['team1']
@@ -117,7 +117,6 @@ def get_predictions(season, num_iterations):
     y_train = df_train[df_train['season'].isin(range(2015, season))]['result']
 
     X_test = df_test.iloc[:, :-1]
-    y_test = df_test['result']
 
     all_predictions = np.zeros((X_test.shape[0], num_iterations))
 
@@ -133,7 +132,7 @@ def get_predictions(season, num_iterations):
             all_predictions[:, i] = y_pred_iteration
 
         else:
-            model = KNeighborsClassifier(n_neighbors=np.random.randint(2, 6))
+            model = KNeighborsClassifier(n_neighbors=np.random.randint(2, 5))
             model.fit(X_train, y_train)
 
             y_pred_iteration = model.predict(X_test)
@@ -147,10 +146,49 @@ def get_predictions(season, num_iterations):
     final_predictions = final_predictions.astype(int)
     y_pred = final_predictions
 
-    return y_pred, y_test, schedule_df, model
+    '''-----------------------------------------------------------------------------------------'''
+    '''Validation set, to compute the model accuracy'''
+    query_val = f'SELECT * FROM core_players_matrix_{season - 1}_regular'
+    df_val = pd.read_sql_query(query_val, engine)
+
+    X_val_train = df_train[df_train['season'].isin(range(2015, season - 1))].iloc[:, 12:-3]
+    y_val_train = df_train[df_train['season'].isin(range(2015, season - 1))]['result']
+
+    X_val_test = df_val.iloc[:, :-1]
+    y_val_test = df_val['result']
+
+    all_predictions_val = np.zeros((X_test.shape[0], num_iterations))
+
+    for i in tqdm(range(num_iterations), desc='Running Iterations', unit='iteration'):
+
+        X_train, X_val, y_train, y_val = train_test_split(X_val_train, y_val_train, test_size=0.2, random_state = np.random.randint(1, 100))
+
+        if i % 2 == 1:
+            model_val = RandomForestClassifier(random_state = np.random.randint(1, 100))
+            model_val.fit(X_train, y_train)
+
+            y_pred_iteration = model.predict(X_val_test)
+            all_predictions_val[:, i] = y_pred_iteration
+
+        else:
+            model_val = KNeighborsClassifier(n_neighbors=np.random.randint(2, 5))
+            model_val.fit(X_train, y_train)
+
+            y_pred_iteration = model.predict(X_val_test)
+            all_predictions_val[:, i] = y_pred_iteration
+            
 
 
-y_pred, y_test, schedule_df, model = get_predictions(season = 2023, num_iterations = 3)
+    '''Make the final prediction based on the majority'''
+
+    final_predictions_val = np.mean(all_predictions_val, axis=1) > 0.5
+    final_predictions_val = final_predictions_val.astype(int)
+    y_val_pred = final_predictions_val
+
+    return y_pred, y_val_pred, y_val_test, schedule_df, model
+
+
+y_pred, y_val_pred, y_val_test, schedule_df, model = get_predictions(season = 2024, num_iterations = 3)
 schedule_df['result_pred'] = y_pred
 
 '''
@@ -258,8 +296,8 @@ def get_playoff_teams(eastern_results_df, western_results_df, season):
     print(f'The East playin_round_two is {east_team1} - {east_team2}')
     print('------------------------------------------------------------')
 
-    result_west = get_single_game_result(west_team1, west_team2, model)
-    result_east = get_single_game_result(east_team1, east_team2, model)
+    result_west = get_single_game_result(2024, west_team1, west_team2, model)
+    result_east = get_single_game_result(2024, east_team1, east_team2, model)
 
     eight_list = []
     if result_west == 1:
@@ -333,5 +371,5 @@ def get_playoff_teams(eastern_results_df, western_results_df, season):
 
     return ranking_east_df, ranking_west_df
     
-eastern_results_df, western_results_df, accuracy, report = simulate_seasons(schedule_df, eastern_teams, western_teams, y_test, y_pred)
-ranking_east_df, ranking_west_df = get_playoff_teams(eastern_results_df, western_results_df, season = 2023)
+eastern_results_df, western_results_df, accuracy, report = simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_val_pred)
+ranking_east_df, ranking_west_df = get_playoff_teams(eastern_results_df, western_results_df, season = 2024)
