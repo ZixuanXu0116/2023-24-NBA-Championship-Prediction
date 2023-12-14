@@ -214,10 +214,11 @@ python3 code/manipulation/get_predicted_player_matrix_playoffs.py
 ```
 ***The output is saved into the database in the tables named regular/playoffs_predicted_player_matrix_data.***
 
-Then, run the following code to get the game schedule for each season:
+Then, run the following code in order and you will get the game schedule for each season:
 
 ```python
 python3 code/manipulation/get_season_schedule.py
+python3 code/scraping/get_game_schedule.py
 ```
 
 ***The output is saved into the database in the tables named regular_game_schedule_data.***
