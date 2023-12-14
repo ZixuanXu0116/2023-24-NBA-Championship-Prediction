@@ -49,7 +49,7 @@ def simulate_series(matchups, season, num_iterations):
             '''Determine the home and away teams based on the game number'''
             if game_number in [1, 2, 5, 7]:
                 home_team, away_team = team2, team1
-                result = get_single_game_result(home_team, away_team, X_train, y_train, num_iterations)
+                result = get_single_game_result(season, home_team, away_team, X_train, y_train, num_iterations)
                 if result == 1:
                     team2_wins += 1
                 else:
@@ -57,7 +57,7 @@ def simulate_series(matchups, season, num_iterations):
             else:
                 home_team, away_team = team1, team2
 
-                result = get_single_game_result(home_team, away_team, X_train, y_train, num_iterations)
+                result = get_single_game_result(season, home_team, away_team, X_train, y_train, num_iterations)
                 if result == 1:
                     team2_wins += 1
                 else:
@@ -140,17 +140,17 @@ def simu_finals(western_winner_regular_wins, eastern_winner_regular_wins, season
 
     return champion[0], series_score_final
 
-playoff_matchups_east, playoff_matchups_west, west_df, east_df = get_playoff_info(season = 2023)
+playoff_matchups_east, playoff_matchups_west, west_df, east_df = get_playoff_info(season = 2024)
 print('Western First Round')
-winning_teams_1st_round_west, series_score_1st_round_west = simulate_series(playoff_matchups_west, season = 2023, num_iterations = 3)
+winning_teams_1st_round_west, series_score_1st_round_west = simulate_series(playoff_matchups_west, season = 2024, num_iterations = 3)
 winning_teams_2nd_round_west, series_score_2nd_round_west, winning_teams_3rd_round_west, \
 series_score_3rd_round_west, western_winner_regular_wins, western_winner = simu_other_rounds(winning_teams_1st_round_west,
-                                                                             season = 2023, num_iterations = 3, conf = 'West')
+                                                                             season = 2024, num_iterations = 3, conf = 'West')
 print('Eastern First Round')
-winning_teams_1st_round_east, series_score_1st_round_east = simulate_series(playoff_matchups_east, season = 2023, num_iterations = 3)
+winning_teams_1st_round_east, series_score_1st_round_east = simulate_series(playoff_matchups_east, season = 2024, num_iterations = 3)
 winning_teams_2nd_round_east, series_score_2nd_round_east, winning_teams_3rd_round_east, \
 series_score_3rd_round_east, eastern_winner_regular_wins, eastern_winner = simu_other_rounds(winning_teams_1st_round_east, 
-                                                                             season = 2023, num_iterations = 3, conf = 'East')
+                                                                             season = 2024, num_iterations = 3, conf = 'East')
 
 series_all = series_score_1st_round_west
 series_all.extend(series_score_2nd_round_west)
@@ -161,7 +161,7 @@ series_all.extend(series_score_3rd_round_east)
 
 print(f'Final Matchup: {western_winner} - {eastern_winner}')
 
-champion, series_score_final = simu_finals(western_winner_regular_wins, eastern_winner_regular_wins, season = 2023, num_iterations = 3)
+champion, series_score_final = simu_finals(western_winner_regular_wins, eastern_winner_regular_wins, season = 2024, num_iterations = 3)
 
 series_all.extend(series_score_final)
 print(series_all)
