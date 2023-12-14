@@ -39,7 +39,7 @@ NBA Players Peak age Distributions: https://www.linkedin.com/pulse/analysing-pre
 Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.xu7872/viz/InfluenceabilitychangevsAge/Sheet2#1)
 
 ***Construct Team Ability Matrix:***
-* Having obtained the ability vectors for each player in each regular season and playoffs, it is natural to establish a **Team Ability Matrix**. For each team, we select the nine players with the most playing time (5 starters and 4 key bench players): these are the key players of a team. Next, we form a 9x7 ability matrix with these nine players and their seven attributes' cluster values. Finally, we add some other columns of age, on-court positions, time played, and game played. The result is a **Team Ability Matrix** for each team and season, for both regular season and playoff formats. Here is an example: (note that the season X through this project means the season ended in Year X, for example, 2022-23 season is named season 2023.
+* Having obtained the ability vectors for each player in each regular season and playoffs, it is natural to establish a **Team Ability Matrix**. For each team, we select the nine players with the most playing time (5 starters and 4 key bench players): these are the key players of a team. Next, we form a 9x7 ability matrix with these nine players and their seven attributes' cluster values. Finally, we add some other columns of age, on-court positions, time played, and game played. The result is a **Team Ability Matrix** for each team and season, for both regular season and playoff formats. Here is an example: (note that the season X through this project means the season ended in Year X, for example, the 2022-23 season is named season 2023.
 
 
 ![Team ability clusters](visualizations/team_cluster_matrix.jpeg)
@@ -64,7 +64,7 @@ Influence ability change vs Age (https://public.tableau.com/app/profile/zixuan.x
 
 ## C. Result & Model Evaluation
 
-Here is an example dashboard of predicted results (it's a GIF) for the 2022-2023 playoffs with an accuracy of 58.91% for predicting each game!
+Here is an example dashboard of predicted results (it's a GIF) for the 2023-24 playoffs with an accuracy of 55.93% for predicting each game! The Predicted Champion is LAC! 
 
 ![Dashboard](visualizations/dash.gif)
 
