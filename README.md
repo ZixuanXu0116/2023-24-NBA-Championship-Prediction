@@ -221,7 +221,9 @@ python3 code/manipulation/get_season_schedule.py
 python3 code/scraping/get_game_schedule.py
 ```
 
-For the 'result' column for season 2024 are all 0s, they are not the real result, we will predict the result for 2024
+For the 'result' column for season 2024 are all 0s, they are not the real result, we will predict the result for 2024.
+
+Also, remember to delete the game on 20231209 (IND vs LAL), because it's the final game for the In-Season Tournament, which doesn't count as a game of regular season.
 
 ***The output is saved into the database in the tables named regular_game_schedule_data.***
 
