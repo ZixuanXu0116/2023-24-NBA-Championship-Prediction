@@ -109,7 +109,9 @@ def get_player_type_and_level(player_data, year, *feature_lists):
     df['Pos'] = df['Pos'].map(position_mapping)
 
     scaler = StandardScaler()
+
     num_clusters = 8
+
 
     result_df = pd.DataFrame(
         {

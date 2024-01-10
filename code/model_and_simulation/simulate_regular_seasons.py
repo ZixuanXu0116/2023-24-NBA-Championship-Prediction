@@ -14,6 +14,7 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+
 print('Starting Process simulation - regular')
 def simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_val_pred):
 
@@ -85,6 +86,79 @@ def simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_va
         western_results_df['Wins'].rank(ascending=False, method='min').astype(int)
     )
 
+
+
+def simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_val_pred):
+
+    eastern_wins = {}
+    eastern_losses = {}
+    western_wins = {}
+    western_losses = {}
+
+    accuracy = accuracy_score(y_val_test, y_val_pred)
+    report = classification_report(y_val_test, y_val_pred)
+
+    print('Accuracy:', accuracy)
+    print('Classification Report:\n', report)
+
+    report = classification_report(y_val_test, y_val_pred, output_dict=True)
+
+    for _, row in schedule_df.iterrows():
+        team1 = row['team1']
+        team2 = row['team2']
+        result_pred = row['result_pred']
+
+        '''Update wins and losses based on the predicted result and conference'''
+
+        if team1 in eastern_teams:
+            eastern_wins[team1] = eastern_wins.get(team1, 0) + (1 - result_pred)
+            eastern_losses[team1] = eastern_losses.get(team1, 0) + result_pred
+        elif team1 in western_teams:
+            western_wins[team1] = western_wins.get(team1, 0) + (1 - result_pred)
+            western_losses[team1] = western_losses.get(team1, 0) + result_pred
+
+        if team2 in eastern_teams:
+            eastern_wins[team2] = eastern_wins.get(team2, 0) + result_pred
+            eastern_losses[team2] = eastern_losses.get(team2, 0) + (1 - result_pred)
+        elif team2 in western_teams:
+            western_wins[team2] = western_wins.get(team2, 0) + result_pred
+            western_losses[team2] = western_losses.get(team2, 0) + (1 - result_pred)
+
+    '''
+    Convert the results to DataFrames for each conference
+
+    '''
+
+
+    eastern_results_df = pd.DataFrame(
+        {
+            'Team': eastern_teams,
+            'Wins': [eastern_wins.get(team, 0) for team in eastern_teams],
+            'Losses': [eastern_losses.get(team, 0) for team in eastern_teams],
+        }
+    )
+
+    western_results_df = pd.DataFrame(
+        {
+            'Team': western_teams,
+            'Wins': [western_wins.get(team, 0) for team in western_teams],
+            'Losses': [western_losses.get(team, 0) for team in western_teams],
+        }
+    )
+
+
+    '''
+    Add a new column for ranking within each conference
+    '''
+
+    eastern_results_df['Rank'] = (
+        eastern_results_df['Wins'].rank(ascending=False, method='min').astype(int)
+    )
+    western_results_df['Rank'] = (
+        western_results_df['Wins'].rank(ascending=False, method='min').astype(int)
+    )
+
+
     '''
     Sort the DataFrames based on the number of wins
 
@@ -123,17 +197,21 @@ def get_predictions(season, num_iterations):
 
     for i in tqdm(range(num_iterations), desc='Running Iterations', unit='iteration'):
 
+
         # X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state = np.random.randint(1, 100))
 
         if i % 2 == 1:
             model = RandomForestClassifier()
+
             model.fit(X_train, y_train)
 
             y_pred_iteration = model.predict(X_test)
             all_predictions[:, i] = y_pred_iteration
 
         else:
+
             model = XGBClassifier(random_state=np.random.randint(1, 100), max_depth = np.random.randint(20, 30))
+
             model.fit(X_train, y_train)
 
             y_pred_iteration = model.predict(X_test)
@@ -162,16 +240,17 @@ def get_predictions(season, num_iterations):
 
     for i in tqdm(range(num_iterations), desc='Running Iterations', unit='iteration'):
 
-        # X_train, X_val, y_train, y_val = train_test_split(X_val_train, y_val_train, test_size=0.2, random_state = np.random.randint(1, 100))
 
         if i % 2 == 1:
             model_val = RandomForestClassifier(random_state = np.random.randint(1, 100))
             model_val.fit(X_val_train, y_val_train)
 
+
             y_pred_iteration = model.predict(X_val_test)
             all_predictions_val[:, i] = y_pred_iteration
 
         else:
+
             model_val = XGBClassifier(random_state=np.random.randint(1, 100), max_depth = np.random.randint(20, 30))
             model_val.fit(X_val_train, y_val_train)
 
@@ -189,7 +268,9 @@ def get_predictions(season, num_iterations):
     return y_pred, y_val_pred, y_val_test, schedule_df, model
 
 
+
 y_pred, y_val_pred, y_val_test, schedule_df, model = get_predictions(season = 2024, num_iterations = 1)
+
 schedule_df['result_pred'] = y_pred
 
 '''
@@ -373,4 +454,6 @@ def get_playoff_teams(eastern_results_df, western_results_df, season):
     return ranking_east_df, ranking_west_df
     
 eastern_results_df, western_results_df, accuracy, report = simulate_seasons(schedule_df, eastern_teams, western_teams, y_val_test, y_val_pred)
+
 ranking_east_df, ranking_west_df = get_playoff_teams(eastern_results_df, western_results_df, season = 2024)
+

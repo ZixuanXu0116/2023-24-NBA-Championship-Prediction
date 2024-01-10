@@ -5,7 +5,9 @@ from database import engine
 from datetime import datetime
 
 # Function to convert the date format
+
 print('Starting Process get_game_schedule')
+
 def convert_date_format(date_str):
     try:
         # Convert to datetime object
