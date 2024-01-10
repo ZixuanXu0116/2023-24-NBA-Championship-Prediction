@@ -46,7 +46,7 @@ We aim to build a prediction pipeline for an NBA regular season and its playoffs
 
 Here is an example dashboard of predicted results (it's a GIF) for the 2023-24 playoffs with an accuracy of 55.93% for predicting each game! The Predicted Champion is LAC! 
 
-![Dashboard](visualizations/dash_2024.gif)
+<img src="visualizations/dash_2024.gif" alt="Dashboard" width="600"/>
 
 
 ## D. Further Plans
