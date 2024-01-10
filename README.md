@@ -49,15 +49,14 @@ Here is an example dashboard of predicted results (it's a GIF) for the 2023-24 p
 ![Dashboard](visualizations/dash_2024.gif)
 
 
-## D. Limitations
+## D. Further Plans
 
-* One main limitation of this plan is that we ***didn't train a separate model for the playoff data***; instead, we still used the model trained on regular season data to predict playoffs (due to limited time). Ideally, dedicated training for previous seasons' playoff data should be done.
+* We plan to train a separate model for the playoff games
 
-* Additionally, for rookie players and those who didn't play in the previous season, we used current season data. This approach isn't ideal as it ***incorporates future information to predict the future***, but again due to ***time limitations***, we temporarily adopted this method to ensure the completion of the entire process.
 
-* Another area for potential improvement is exploring additional methods to enhance the accuracy of our model predictions. We might engage in more feature engineering, refining the selection of truly valuable features. For instance, in clustering, we can seek more precise and professionally segmented data to ***define clusters***. We could also experiment with creating additional clusters or combining existing ones to identify the most effective combinations for prediction, rather than being confined to a single configuration.
+* Try more combinations of parameters for the cluster and cluster prediction
  
-* Given that the current combination incorporates ***subjective elements based on our understanding of basketball and the NBA***, exploring various combinations may provide better predictive outcomes. Adjusting the weights assigned to a player's improvement and regression, based on a more realistic or finely segmented allocation, is another aspect to explore.
+* Add a parameter to take fatigue into consideration
 
 ## E. Reproducing Results
 
