@@ -1,11 +1,12 @@
 import pandas as pd
 from database import engine
+from tqdm import tqdm
 import warnings
-
 warnings.filterwarnings('ignore')
 
 
-def get_feature_matrix(schedule_df, df):
+def get_feature_matrix(schedule_df, df, season):
+    df = df[df['G'] >= 10]
     df_sorted = df.groupby('Tm', group_keys=False).apply(
         lambda x: x.sort_values(by='MP', ascending=False)
     )
@@ -69,17 +70,19 @@ def get_feature_matrix(schedule_df, df):
 
 
 if __name__ == '__main__':
-    season = 2023
+    print('Starting Process get_core_player_matrix')
+    for season in tqdm(range(2021, 2025), desc='Running Iterations', unit='season'):
 
-    query = f'SELECT * FROM regular_game_schedule_data WHERE season = {season}'
-    schedule_df = pd.read_sql_query(query, engine)
+        query = f'SELECT * FROM regular_game_schedule_data WHERE season = {season}'
+        schedule_df = pd.read_sql_query(query, engine)
 
-    query = (
-        f'SELECT * FROM regular_predicted_player_matrix_data WHERE season = {season}'
-    )
-    df = pd.read_sql_query(query, engine)
+        query = (
+            f'SELECT * FROM regular_predicted_player_matrix_data WHERE season = {season}'
+        )
+        df = pd.read_sql_query(query, engine)
 
-    result_df = get_feature_matrix(schedule_df, df)
-    result_df.to_sql(
-        'core_players_matrix_2023_regular', con=engine, if_exists='replace', index=False
-    )
+        result_df = get_feature_matrix(schedule_df, df, season)
+
+        result_df.to_sql(
+            f'core_players_matrix_{season}_regular', con=engine, if_exists='replace', index=False
+        )

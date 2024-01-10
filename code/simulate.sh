@@ -1,0 +1,2 @@
+python3 code/model_and_simulation/simulate_regular_seasons.py
+python3 code/model_and_simulation/simulate_playoffs.py

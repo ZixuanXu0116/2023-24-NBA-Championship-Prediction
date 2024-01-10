@@ -109,7 +109,7 @@ def get_player_type_and_level(player_data, year, *feature_lists):
     df['Pos'] = df['Pos'].map(position_mapping)
 
     scaler = StandardScaler()
-    num_clusters = 6
+    num_clusters = 8
 
     result_df = pd.DataFrame(
         {
@@ -135,13 +135,13 @@ def get_player_type_and_level(player_data, year, *feature_lists):
             'scoring',
         ],
         [
-            [1, 5, 10, 2, 0.1],
+            [1, 5, 10, 2, 0.05],
             [1, 0.75, 1, 1, 0.5, 0.2],
-            [1, 0.3, 0.25, 0.5],
+            [1.5, 1, 0.04, 0.3],
             [1, 1, 1, 1, 0.3, 0.3, 0.3],
-            [1, 1, 0.05],
-            [1, 1, 1, 1, 1, 0.1],
-            [1, 2, 2, 3, 1],
+            [20, 20, 1, 1],
+            [1, 1, 1, 1, 1, 0.1, 1],
+            [1, 1, 1.5, 3, 1.5],
         ],
     ):
         X = df[abl]
@@ -157,13 +157,14 @@ def get_player_type_and_level(player_data, year, *feature_lists):
 
 
 if __name__ == '__main__':
+    print('Starting Process get_player_cluster')
     '''Defining cluster characteristics'''
     shooting_abl = ['3P', '3PAr', '3P%', 'FT%', 'USG%']
     peri_def_abl = ['STL', 'STL%', 'DBPM', 'DWS', 'BLK', 'BLK%']
     playmkr_abl = ['AST', 'AST%', 'USG%', 'TOV%']
     pro_rim_abl = ['DBPM', 'DWS', 'BLK', 'BLK%', 'ORB%', 'DRB%', 'TRB']
-    effi_abl = ['eFG%', 'TS%', 'PER']
-    influ_abl = ['BPM', 'WS', 'VORP', 'OBPM', 'OWS', 'USG%']
+    effi_abl = ['eFG%', 'TS%', 'PER', 'MP']
+    influ_abl = ['BPM', 'WS', 'VORP', 'OBPM', 'OWS', 'USG%', 'MP']
     scoring_abl = ['PTS', 'FG', '2P', '3P', 'FT']
 
     '''Outputting to csv of all players and their yearly regular season's clusters'''

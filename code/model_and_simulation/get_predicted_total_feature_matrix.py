@@ -4,6 +4,7 @@ import ast
 from database import engine
 from pandas import json_normalize
 
+print('Starting Process get_pred_total_fea')
 new_directory = os.path.join(os.getcwd(), 'code', 'model_and_simulation')
 os.chdir(new_directory)
 df = pd.read_csv(os.path.join(os.getcwd(), 'temp_predicted.csv'))

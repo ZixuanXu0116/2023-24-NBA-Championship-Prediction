@@ -35,6 +35,7 @@ def get_single_season_cluster_matrix(season, game_type):
 
 '''Step 2: Iterate over each row in the cur playoffs DataFrame'''
 if __name__ == '__main__':
+    print('Starting Process get_predicted_matrix_playoffs')
     for season in tqdm(range(2016, 2025), desc='Processing years'):
         df_last_playoffs = get_single_season_cluster_matrix(season - 1, 'playoffs')
         df_cur_regular = get_single_season_cluster_matrix(season, 'regular')
@@ -66,9 +67,9 @@ if __name__ == '__main__':
                     ]
                 ]
                 if 18 <= age <= 23:
-                    attributes = attributes.apply(lambda x: x + 0.5 if x != 5 else x)
+                    attributes = attributes.apply(lambda x: x + 0.5 if x != 7 else x)
                 elif 24 <= age <= 27:
-                    attributes = attributes.apply(lambda x: x + 0.25 if x != 5 else x)
+                    attributes = attributes.apply(lambda x: x + 0.25 if x != 7 else x)
                 elif 33 <= age <= 35:
                     attributes = attributes.apply(lambda x: x if x != 0 else x)
                 elif age >= 36:
