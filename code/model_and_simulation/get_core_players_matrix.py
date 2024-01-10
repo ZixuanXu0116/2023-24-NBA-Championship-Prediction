@@ -74,19 +74,8 @@ def get_feature_matrix(schedule_df, df, season):
 if __name__ == '__main__':
 
     print('Starting Process get_core_player_matrix')
-    for season in tqdm(range(2021, 2025), desc='Running Iterations', unit='season'):
 
-        query = f'SELECT * FROM regular_game_schedule_data WHERE season = {season}'
-        schedule_df = pd.read_sql_query(query, engine)
-
-        query = (
-            f'SELECT * FROM regular_predicted_player_matrix_data WHERE season = {season}'
-        )
-        df = pd.read_sql_query(query, engine)
-
-
-
-    for season in tqdm(range(2021, 2025), desc='Running Iterations', unit='season'):
+    for season in tqdm(range(2024, 2025), desc='Running Iterations', unit='season'):
 
         query = f'SELECT * FROM regular_game_schedule_data WHERE season = {season}'
         schedule_df = pd.read_sql_query(query, engine)
