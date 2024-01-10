@@ -70,11 +70,7 @@ Here is an example dashboard of predicted results (it's a GIF) for the 2023-24 p
 
 ```linux
 
-git clone git@github.com:ZixuanXu0116/2023-24-NBA-Championship-Prediction.git
-
-cd 2023-24-NBA-Championship-Prediction
-
-pip install -r requirements.txt 
+sh code/environ.sh
 
 ```
 
@@ -89,10 +85,7 @@ cp demo.env .env
 ***Scraping Data:***
 
 ```linux
-python3 code/scraping/get_NBA_data.py
-python3 code/scraping/get_monthly_html.py
-python3 code/scraping/get_gamely_html.py
-python3 code/scraping/load_game_data_to_database.py
+sh code/scrape.sh
 ```
 
 * Then you will load the game-by-game data into the database, the table name will be 'nba_game_by_game_regular_data'. This time, no worries about the duplicate of data because we use if_exists='replace' for load_game_data_to_database.py.
