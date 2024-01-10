@@ -106,7 +106,7 @@ df_games['result'] = 0
 df_games['season'] = 2024
 
 df_games.to_sql(
-        'regular_game_schedule_data', con=engine, if_exists='append', index=False
+        'regular_game_schedule_data', con=engine, if_exists='replace', index=False
     )
 
 
