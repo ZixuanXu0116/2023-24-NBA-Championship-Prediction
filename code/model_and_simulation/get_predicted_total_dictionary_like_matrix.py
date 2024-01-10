@@ -86,6 +86,7 @@ def load_team_data(season):
 
 
 game_info_list = []
+print('Starting Process get_pred_dic_like_data')
 for season in tqdm(range(2016, 2025), desc='Processing years'):
     game_by_game_data = load_game_by_game_data(season)
     player_data = load_player_cluster_data(season)

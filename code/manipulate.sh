@@ -1,0 +1,10 @@
+python3 code/manipulation/get_player_cluster.py
+python3 code/manipulation/get_predicted_player_matrix_regular.py
+python3 code/manipulation/get_predicted_player_matrix_playoffs.py
+python3 code/manipulation/get_season_schedule.py
+python3 code/scraping/get_game_schedule.py
+python3 code/model_and_simulation/get_real_total_dictionary_like_matrix.py
+python3 code/model_and_simulation/get_predicted_total_dictionary_like_matrix.py
+python3 code/model_and_simulation/get_real_total_feature_matrix.py
+python3 code/model_and_simulation/get_predicted_total_feature_matrix.py
+python3 code/model_and_simulation/get_core_players_matrix.py

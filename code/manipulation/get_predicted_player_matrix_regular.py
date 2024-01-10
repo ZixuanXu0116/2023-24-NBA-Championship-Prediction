@@ -35,6 +35,9 @@ def get_single_season_cluster_matrix(season, game_type):
 
 '''Step 2: Iterate over each row in the cur playoffs DataFrame'''
 if __name__ == '__main__':
+
+    print('Starting Process get_predicted_matrix_regular')
+
     for season in tqdm(range(2016, 2025), desc="Processing years"):
 
         df_last_season = get_single_season_cluster_matrix(season - 1, 'regular')

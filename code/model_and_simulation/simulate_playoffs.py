@@ -3,7 +3,9 @@ import numpy as np
 from database import engine
 from get_result_two_teams_playoffs import get_single_game_result
 from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
 
+print('Starting Process simulation - playoffs')
 query_train = f'SELECT * FROM real_total_feature_matrix_data'
 df_train = pd.read_sql_query(query_train, engine)
 
