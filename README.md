@@ -69,16 +69,17 @@ Here is an example dashboard of predicted results (it's a GIF) for the 2023-24 p
 * Create a database on GCP.
 * After the GCP database has been set up completely, please follow the commands and instructions below.
 
-```linux
-sh code/environ.sh
-```
-
 * Then create a .env file in the same format as demo.env by changing the attributes inside like passwords, host, and database_name to the ones of your own database. You can edit the content in the demo.env directly and then run:
-
 
 ```python
 cp demo.env .env
 
+```
+
+* Then, set up the environment
+
+```linux
+sh code/environ.sh
 ```
 
 ***Scraping Data:***
