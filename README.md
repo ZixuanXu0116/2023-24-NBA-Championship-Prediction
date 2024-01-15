@@ -4,7 +4,7 @@
 Team Members: [Zixuan Xu](https://github.com/ZixuanXu0116), [Munazza Ilyas](https://github.com/Munazza-Ilyas), [Suqian Qi](https://github.com/SuqianQi), [Aahil Navroz](https://github.com/AahilNav), [Joseph Williams](https://github.com/josephwms)
 
 ## Introduction
-We aim to build a prediction pipeline for an NBA regular season and its playoffs. It is more like a semi-finished product with flaws. But the basic structure and the whole pipeline are built up. Significant techniques we used in the project include Data Scraping, K-means Clustering, Random Forest Classification, K-neighbors classifier, and Streamlit Dashboard. We hope you enjoy it!
+We aim to build a prediction pipeline for an NBA regular season and its playoffs. It is more like a semi-finished product with flaws. But the basic structure and the whole pipeline are built up. Significant techniques we used in the project include Data Scraping, K-means Clustering, Random Forest Classification, XGBoost, and Streamlit Dashboard. We hope you enjoy it!
 
 
 ## A. Data Scraping and Preparation
